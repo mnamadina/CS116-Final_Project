@@ -1,7 +1,8 @@
+console.log("renderMap.js is up!!!");
 var svgStates = d3.select("svg #states"),
     svgBoundary = d3.select("svg #boundary"),
     states = {},
-    startYear = 1790,
+    startYear = 1910,
     currentYear = startYear;
 
 var width = window.innerWidth, // (1)
@@ -34,5 +35,7 @@ d3.json("data/states.json", function(error, topologies) {  // (4)
         console.log("d is ", d)
         var name = d.properties.STATENAM.replace(" Territory", ""); 
         return colors[name];
-      });
-}
+      })
+      .append("svg:title")
+      .text(function(d) { return d.properties.STATENAM; });
+});
