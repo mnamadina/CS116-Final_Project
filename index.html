@@ -57,11 +57,189 @@
   <div class="vis-holder">
     <!-- Change viewbox to whatever you want, e.g. "0 0 1000 6000" This determines your aspect ratio and coordinate system -->    
     <!-- Delete all the sample SVG code below after the viewbox to before the closing tag. Populate this part of the SVG with D3. -->
-    <div class="scatterplot-holder" id="scatterplot"></div>
-    <svg id="vis-svg"
-      preserveAspectRatio="xMidYMid meet" class="marks" viewBox="0 0 821 520" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Don't delete the closing tag! -->
-    </svg>
+    <div class="bar-chart">
+      <h3>Insurance Coverage by States</h3>
+      <svg class= "bar-chart" id="primary-barChart"></svg>
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <script src="./js/bar_chart.js"></script>
+    </div>
+    <div class="map">
+      <h3>Healthcare Expenditure by States</h3>
+      <svg class= "map" id="primary-USMap"></svg>
+      <script src="https://d3js.org/topojson.v3.min.js"></script>
+      <script src="./js/renderMap.js"></script>
+      <script>
+        ((() => {
+      // Load the data from a json file 
+      d3.json("/data/insurance_coverage.xlsx", (data) => {
+
+      // General event type for selections, used by d3-dispatch
+      // https://github.com/d3/d3-dispatch
+      const dispatchString = "selectionUpdated";
+
+      // Create a line chart given x and y attributes, labels, offsets; 
+      // a dispatcher (d3-dispatch) for selection events; 
+      // a div id selector to put our svg in; and the data to use.
+      let insuranceCoverage = Bar_Chart()
+        // .x(d => d.year)
+        // .xLabel("YEAR")
+        // .y(d => d.poverty)
+        // .yLabel("POVERTY RATE")
+        // .yLabelOffset(40)
+        .selectionDispatcher(d3.dispatch(dispatchString))
+        ("#primary-barChart", data);
+
+      // Create a scatterplot given x and y attributes, labels, offsets; 
+      // a dispatcher (d3-dispatch) for selection events; 
+      // a div id selector to put our svg in; and the data to use.
+      let expenditureByStates = renderMap()
+        // .x(d => d.unemployment)
+        // .xLabel("UNEMPLOYMENT RATE")
+        // .y(d => d.murder)
+        // .yLabel("MURDER RATE IN STATE PER 100000")
+        // .yLabelOffset(150)
+        .selectionDispatcher(d3.dispatch(dispatchString))
+        ("#primary-USMap", data);
+
+      // Create a table given the following: 
+      // a dispatcher (d3-dispatch) for selection events; 
+      // a div id selector to put our table in; and the data to use.
+      let tableData = table()
+        .selectionDispatcher(d3.dispatch(dispatchString))
+        ("#primary-table", data);
+
+
+      // When the line chart selection is updated via brushing, 
+      // tell the scatterplot to update it's selection (linking)
+      insuranceCoverage.selectionDispatcher().on(dispatchString, function(selectedData) {
+        expenditureByStates.updateSelection(selectedData);
+        // ADD CODE TO HAVE TABLE UPDATE ITS SELECTION AS WELL
+        tableData.updateSelection(selectedData);
+      });
+
+      // When the scatterplot selection is updated via brushing, 
+      // tell the line chart to update it's selection (linking)
+      expenditureByStates.selectionDispatcher().on(dispatchString, function(selectedData) {
+        insuranceCoverage.updateSelection(selectedData);
+        // ADD CODE TO HAVE TABLE UPDATE ITS SELECTION AS WELL
+        tableData.updateSelection(selectedData);
+      });
+
+      // When the table is updated via brushing, tell the line chart and scatterplot
+      // YOUR CODE HERE
+      tableData.selectionDispatcher().on(dispatchString, function(selectedData){
+        insuranceCoverage.updateSelection(selectedData);
+        expenditureByStates.updateSelection(selectedData);
+      });
+    });
+
+    })());
+      </script>
+    </div>
+  </div>
+  
+  <!-- Your writeup goes here -->
+  <div class = "content-column">
+
+    <h1>Demo Video</h1>
+    
+    <p><em>Embedded MP4 demo video using the HTML5 &lt;video&gt; tag. For example, this screen recording Prof. Cody Dunne made of Mike Bostock's flexible transitions in D3 slide:</em></p>
+    
+    <video controls width="100%">
+      <source src="http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4" type="video/mp4">
+      <p>Your browser doesn't support HTML5 video. Here is
+       a <a href="http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4">link to the video</a> instead.</p>
+    </video>
+
+    <h1>Visualization explanation</h1>
+    
+    <p><em>Final visualization screenshots (PNG images), design justifications, UI walk-through, and linked presentation slides.</em></p>
+
+    <h1>Data Analysis</h1>
+    <p><em>Summary of data, data types, and data preprocessing.</em></p>
+
+    <p><em>Expectation: Data sources match the problem statement and are appropriate. These descriptions should be very explicit so someone could read your page and properly reproduce your results.</em></p>
+
+    <h1>Task Analysis</h1>
+
+    <p><em>Summary of task table.</em></p>
+
+    <p><em>Expectation: Clearly describes domain tasks, processes, goals and abstract tasks for domain problems.</em></p>
+
+    <h1>Design Process</h1>
+    
+    <p><em>Sketches and design choices to justify final visualization.</em></p>
+
+    <p><em>Expectation: Evidence of iterative improvement.
+    Logical discussion of design choices grounded in theory from course.
+    Discusses feedback from usability testing.</em></p>
+
+
+    <h1>Conclusion</h1>
+
+    <p><em>Short summary of work completed and areas for improvement/future-work.</em></p>
+    
+    <p><em>Expectation: Meaningfully wraps up project and has good future directions.</em></p>
+
+    
+    <h1>Acknowledgments</h1>
+
+    <p><em>List here where any code, packages/libraries, text, images, designs, etc. that you leverage come from.</em></p>
+    
+    <ul>
+      <li><a href="https://d3js.org/">D3: Data-Driven Documents</a> by Mike Bostock.</li>
+      <li><a href="https://codepo8.github.io/css-fork-on-github-ribbon/#">Pure CSS responsive "Fork me on GitHub" ribbon</a> by Chris Heilmann.</li>
+    </ul>
+    
+  </div>
+  
+  <!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
+  <script src="js/visualization.js"></script>
+  <script src="./static/colors.js"></script>
+<<<<<<< HEAD
+=======
+  <script src="./js/USMap.js"></script>
+  <script src="./js/scatterplot.js"></script>     <!-- To be added -->
+  <script src="./js/table.js"></script>            <!-- To be added -->
+  <script src="./js/bar_chart.js"></script>        <!-- To be added -->
+
+  <script>
+    var width=821, height=520, spacing = 100;
+    var data = [{"temperature":14.2, "sales":208},
+                {"temperature":16.4, "sales":310},
+                {"temperature":15.2, "sales":322},
+                {"temperature":21.1, "sales":510}];
+    var svg = d3.select("#vis-svg").append("svg")
+                .attr("width",width).attr("height", height)
+                .style("background","pink")
+                .append("g")
+                .attr("transform","translate(" + spacing/2 
+                + "," + spacing/2 + ")");
+    var xScale = d3.scaleLinear()
+                    .domain([d3.min(data,function(d){return 
+                    d.temperature;})-1, d3.max(data,
+                    function(d){return d.temperature;})+1])
+                    .range([0,width-spacing]);
+    var yScale = d3.scaleLinear()
+                    .domain([0, d3.max(data, function(d)
+                    {return d.sales;})])
+                    .range([height-spacing,0]);
+    var xAxis = d3.axisBottom(xScale);
+    var yAxis = d3.axisLeft(yScale);
+    svg.append("g").attr("transform","translate(0," + (height
+    - spacing) + ")").call(xAxis);
+    svg.append("g").call(yAxis)
+    var dots = svg.append("g")
+                      .selectAll("dot").data(data);
+    dots.enter().append("circle")
+                      .attr("cx", function(d){return
+                      xScale(d.temperature);})
+                      .attr("cy",function(d){return 
+                        yScale(d.sales);})
+                      .attr("r",5)
+                      .style("fill","red");
+
+  </script>
   </div>
   
   <!-- Your writeup goes here -->
