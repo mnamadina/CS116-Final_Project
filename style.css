@@ -21,6 +21,28 @@ h1, h2, h3 {
   height: 100%;
 }
 
+/* Important to add if we want the scatterplot to take take the right half of the screen */
+.scatterplot-holder {
+	flex: 1;  
+  }
+
+  #table-container {
+	font-family: Arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+  }
+  
+  table {
+	border: 1px solid #ddd;
+	width: 100%;
+  }
+  
+  th, td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+  }
+    
 /* Fork on GitHub ribbon via https://codepo8.github.io/css-fork-on-github-ribbon/# */  
 #forkongithub a{
 	background:#00F;

@@ -5,19 +5,40 @@ function Table() {
         selectableElements = d3.select(null),
         dispatcher;
         
-        let table = d3.select(selector)
-            .append("table")
-            .classed("my-table", true);
+        // let table = d3.select(selector)
+        //     .append("table")
+        //     .classed("my-table", true);
+        let svg = d3.select(selector)
+            .append("svg")
+            .classed("my-svg", true);
 
         let tableHeaders = ["State", "Total Healthcare Expenditure", "Spending on Medicaid", "Health Insurance Coverage Percentage", "Maternity Deaths"];
 
+        let headerText = svg.append('g')
+            .classed('headers', true)
+            .selectAll('text')
+            .data(tableHeaders)
+            .enter()
+            .append('text')
+            .attr('x', (d, i) => i * 150)
+            .attr('y', 20)
+            .text(d => d);
+
+        let rows = svg.append('g')
+        .classed('rows', true)
+        .selectAll('g')
+        .data(data)
+        .enter()
+        .append('g')
+        .attr('transform', (d, i) => `translate(0, ${30 + i * 20})`);
+            
         let tr = table.append('thead').append('tr');
         tr.selectAll('th').data(tableHeaders).enter().append('th').text((d) => d);
 
-        let rows = table.append('tbody').selectAll('tr')
-            .data(data)
-            .enter()
-            .append('tr');
+        // let rows = table.append('tbody').selectAll('tr')
+        //     .data(data)
+        //     .enter()
+        //     .append('tr');
 
         rows.selectAll('td')
             .data(d => [d.column1, d.column2, d.column3, d.column4, d.column5])
