@@ -75,7 +75,7 @@ function barchart() {
     right: 30,
     bottom: 35
   },
-  
+
     width = 500 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom,
     xValue = d => d[0],
@@ -90,7 +90,7 @@ function barchart() {
   // Create the chart by adding an svg to the div with the id 
   // specified by the selector using the given data
   function chart(selector, data) {
-    console.log("calling the ");
+    console.log("calling the chart in the barchart");
     let svg = d3.select(selector)
       .append("svg")
       .attr("preserveAspectRatio", "xMidYMid meet")
