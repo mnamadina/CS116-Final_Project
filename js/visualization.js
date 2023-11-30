@@ -160,7 +160,6 @@
         "Instances of hate crimes (per 100,000)": 3.12
       }
   ];
-
   var margin = { top: 20, right: 20, bottom: 50, left: 70 };
   var width = 800 - margin.left - margin.right;
   var height = 500 - margin.top - margin.bottom;
@@ -199,12 +198,13 @@
     .style('text-anchor', 'middle')
     .text('Instances of hate crimes (per 100,000)');
 
-  svg.selectAll('circle')
+  var circles = svg.selectAll('circle')
     .data(scatterplot_data)
     .enter().append('circle')
     .attr('cx', d => xScale(d["% living below poverty line (2021)"]))
     .attr('cy', d => yScale(d["Instances of hate crimes (per 100,000)"]))
     .attr('r', 8)
+    .attr('class', 'scatter-circle');
 
   svg.selectAll('text')
     .data(scatterplot_data)
@@ -212,4 +212,46 @@
     .attr('x', d => xScale(d["% living below poverty line (2021)"]) + 10) 
     .attr('y', d => yScale(d["Instances of hate crimes (per 100,000)"]))
     .text(d => d.State);
+
+  function brush() {
+    const brush = d3.brush()
+      .on("start brush", highlight) 
+      .on("end", brushEnd) 
+      .extent([
+        [-margin.left, -margin.bottom],
+        [width + margin.right, height + margin.top]
+      ]);
+
+    svg.append('g')
+      .call(brush);
+
+    function highlight() {
+      if (d3.event.selection === null) return;
+      const [
+        [x0, y0],
+        [x1, y1]
+      ] = d3.event.selection;
+
+      circles.classed("selected", d =>
+        x0 <= xScale(d["% living below poverty line (2021)"]) && xScale(d["% living below poverty line (2021)"]) <= x1 &&
+        y0 <= yScale(d["Instances of hate crimes (per 100,000)"]) && yScale(d["Instances of hate crimes (per 100,000)"]) <= y1
+      );
+
+      circles.filter(".selected")
+      .attr("fill", "red");
+
+      let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+
+      dispatcher.call(dispatchString, this, svg.selectAll(".selected").data());
+    }
+
+    function brushEnd() {
+      // We don't want infinite recursion
+      if (d3.event.sourceEvent.type != "end") {
+        d3.select(this).call(brush.move, null);
+      }
+    }
+  }
+
+  brush(); 
 })();
