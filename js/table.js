@@ -49,6 +49,10 @@ function Table() {
         let isMouseDown = false;
 
         rows.on("mouseover", (d, i, elements) => {
+          // dispatcher.call(dispatchString, this, table.selectAll(".selected").data());
+          // d3.select(elements[i]).classed("highlighted", false);
+          // dispatcher.call("unhighlight", this);
+
             if (ourBrush !== null) {
               d3.select(elements[i]).classed("highlighted", true);
               dispatcher.call("highlight", this, d);
@@ -60,6 +64,8 @@ function Table() {
       
                 // Let other charts know
                 dispatcher.call(dispatchString, this, table.selectAll(".selected").data());
+                d3.select(elements[i]).classed("highlighted", false);
+                dispatcher.call("unhighlight", this);
             }
             if (ourBrush !== null) {
               d3.select(elements[i]).classed("highlighted", false);
@@ -68,6 +74,10 @@ function Table() {
           });
       
           rows.on("mousedown", (d, i, elements) => {
+            // dispatcher.call(dispatchString, this, table.selectAll(".selected").data());
+            // d3.select(elements[i]).classed("highlighted", false);
+            // dispatcher.call("unhighlight", this);
+
             isMouseDown = true;
             ourBrush = d3.select(elements[i]);
             ourBrush.classed("mousedown", true);
