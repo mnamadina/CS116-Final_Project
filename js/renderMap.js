@@ -1,4 +1,6 @@
 (async () => {
+  console.log("working");
+  
     // Step 2. Load the US map data.
     const us = await d3.json('https://d3js.org/us-10m.v2.json');
     const data = topojson.feature(us, us.objects.states).features;
@@ -11,6 +13,9 @@
       .append('svg')
       .attr('width', width)
       .attr('height', height);
+    // const svg = d3.select('#map')
+    //       .attr('width', width)
+    //       .attr('height', height);
 
     // Create an instance of geoPath.
     const path = d3.geoPath();
