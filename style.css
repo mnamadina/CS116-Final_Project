@@ -5,6 +5,32 @@ body {
 	sans-serif;
 }
 
+/* Recreate the D3 brush style...
+tr.mouseover {
+	background-color: #d6d6d6;
+  }
+  
+  /* ...but add a darker selected and brushed color. */
+  /* tr.mouseover.selected{
+	background-color: #e08fa3;
+  }
+
+tr.mouseover.brushed{
+	background-color: #a3e08f;
+  }
+
+tr.selected {
+	background-color: #e08fa3;
+  }
+  
+  tr.brushed {
+	background-color: #a3e08f;
+  }
+
+tr.mousedown.brushed {
+	background-color: #7bc876;
+  } */
+
 h1, h2, h3 {
 	line-height: 1.2
 }

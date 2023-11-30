@@ -46,12 +46,21 @@ function Table() {
             .append('td')
             .text(d => d);
 
+        let isMouseDown = false;
+
         rows.on("mouseover", (d, i, elements) => {
             if (ourBrush !== null) {
               d3.select(elements[i]).classed("highlighted", true);
               dispatcher.call("highlight", this, d);
             }
           }).on("mouseout", (d, i, elements) => {
+            if (!isMouseDown) {
+              d3.select(elements[i]).classed("selected", false)
+                let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+      
+                // Let other charts know
+                dispatcher.call(dispatchString, this, table.selectAll(".selected").data());
+            }
             if (ourBrush !== null) {
               d3.select(elements[i]).classed("highlighted", false);
               dispatcher.call("unhighlight", this);
@@ -59,6 +68,7 @@ function Table() {
           });
       
           rows.on("mousedown", (d, i, elements) => {
+            isMouseDown = true;
             ourBrush = d3.select(elements[i]);
             ourBrush.classed("mousedown", true);
             selectableElements = d3.selectAll(".highlighted");
@@ -66,12 +76,41 @@ function Table() {
           });
       
           d3.select("body").on("mouseup", () => {
+            isMouseDown = false;
             if (ourBrush !== null) {
               ourBrush.classed("mousedown", false);
               selectableElements = d3.select(null);
               ourBrush = null;
             }
           });
+
+          /* Brooke's code:
+          let isMouseDown = false;
+          d3.selectAll("tr")
+          .on("mousedown", (d, i, elements) => {
+            isMouseDown = true;
+          })
+          .on("mouseup", (d, i, elements) => {
+            isMouseDown = false;
+          })
+          .on("mouseover", (d, i, elements) => {
+            d3.select(elements[i]).classed("selected", true)
+              let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+              console.log('table.selectAll(".selected") is ', table.selectAll(".selected"))
+              console.log('table.selectAll(".selected").data() is ', table.selectAll(".selected").data())
+              dispatcher.call(dispatchString, this, table.selectAll(".selected").data());
+          })
+          .on("mouseout", (d, i, elements) => {
+            if (!isMouseDown) {
+              d3.select(elements[i]).classed("selected", false)
+                let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+      
+                // Let other charts know
+                dispatcher.call(dispatchString, this, table.selectAll(".selected").data());
+      
+            }
+          });
+          */
 
         return chart;
     }
