@@ -2,8 +2,6 @@
 // variables and prevent 
 (() => {
 
-  console.log("Hello, world!");
-
   // Will be edited to follow the path later
   var scatterplot_data =
     [
@@ -255,4 +253,3 @@
 
   brush(); 
 })();
-})
