@@ -1,11 +1,13 @@
 // Function to read and process CSV data
 function readCSV() {
   d3.csv("../data/insurance.csv").then(function(data) {
-    // Do something with the data
-    console.log(data);
 
-    // Example: Create a simple table
-    barChart(data);
+    if (error) {
+      console.error("Error loading the insurance.csv file:", error);
+  } else {
+      console.log(data[0]);
+      barChart(data);
+    }
   });
 }
 
