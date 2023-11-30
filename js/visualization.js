@@ -197,7 +197,7 @@
     .style('text-anchor', 'middle')
     .text('Mortality deaths/100,000 births');
 
-  var circles = svg.selectAll('circle')
+    var circles = svg.selectAll('circle')
     .data(scatterplot_data)
     .enter().append('circle')
     .attr('cx', d => xScale(d["% of non-white residents"]))
@@ -224,25 +224,21 @@
     svg.append('g')
       .call(brush);
 
-    function highlight() {
-      if (d3.event.selection === null) return;
-      const [
-        [x0, y0],
-        [x1, y1]
-      ] = d3.event.selection;
-
-      circles.classed("selected", d =>
-        x0 <= xScale(d["% of non-white residents"]) && xScale(d["% of non-white residents"]) <= x1 &&
-        y0 <= yScale(d["Mortality deaths/100,000 births"]) && yScale(d["Mortality deaths/100,000 births"]) <= y1
-      );
-
-      circles.filter(".selected")
-      .attr("fill", "red");
-
-      let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
-
-      dispatcher.call(dispatchString, this, svg.selectAll(".selected").data());
-    }
+      function highlight() {
+        const [
+          [x0, y0],
+          [x1, y1]
+        ] = d3.event.selection;
+  
+        circles.classed('selected', d =>
+          x0 <= xScale(d["% of non-white residents"]) && xScale(d["% of non-white residents"]) <= x1 &&
+          y0 <= yScale(d["Mortality deaths/100,000 births"]) && yScale(d["Mortality deaths/100,000 births"]) <= y1
+        );
+  
+        circles.attr('fill', function () {
+          return d3.select(this).classed('selected') ? 'red' : ''; // Apply red fill to selected circles
+        });
+      }
 
     function brushEnd() {
       // We don't want infinite recursion
@@ -253,4 +249,15 @@
   }
 
   brush(); 
+
+    // Adding mousedown event listener to document body
+    document.body.addEventListener('mousedown', function (event) {
+      const isClickedInsideCircle = event.target.closest('.scatter-circle');
+      const isClickedInsideSelected = event.target.closest('.selected');
+  
+      if (!isClickedInsideCircle && !isClickedInsideSelected) {
+        // Remove 'selected' class and reset circle colors
+        circles.classed('selected', false).attr('fill', ''); // Remove 'selected' class and reset fill color
+      }
+    });
 })();
