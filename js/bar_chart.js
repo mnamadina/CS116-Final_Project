@@ -5,7 +5,7 @@ function readCSV() {
     console.log(data);
 
     // Example: Create a simple table
-    createTable(data);
+    barChart(data);
   });
 }
 
