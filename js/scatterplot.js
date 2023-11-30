@@ -159,7 +159,7 @@
         "Instances of hate crimes (per 100,000)": 3.12
       }
   ];
-  var margin = { top: 20, right: 20, bottom: 50, left: 70 };
+  var margin = { top: 30, right: 60, bottom: 60, left: 70 };
   var width = 800 - margin.left - margin.right;
   var height = 500 - margin.top - margin.bottom;
 
@@ -202,23 +202,28 @@
     .enter().append('circle')
     .attr('cx', d => xScale(d["% of non-white residents"]))
     .attr('cy', d => yScale(d["Mortality deaths/100,000 births"]))
-    .attr('r', 8)
+    .attr('r', 8) // radius (should change depending on certain factors)
     .attr('class', 'scatter-circle');
 
-  circles.on('mouseover', function (event, d) {
-    d3.select(this)
-      .attr('r', 12) // Increase circle radius on hover for highlighting effect
-      .append('text')
-      .attr('class', 'dot-label')
-      .attr('x', xScale(d["% of non-white residents"]) + 10)
-      .attr('y', yScale(d["Mortality deaths/100,000 births"]) - 10)
-      .text(d.State);
-  })
-  .on('mouseout', function () {
-    d3.select(this)
-      .attr('r', 8); // Reset circle radius on mouseout
-    d3.selectAll('.dot-label').remove(); // Remove all dot labels on mouseout
-  });
+  // var label = svg.append('text')
+  //   .attr('class', 'dot-label')
+  //   .style('opacity', 0);
+
+  // circles.on('mouseover', function (event, d) {
+  //   d3.select(this)
+  //     .attr('r', 12); // Increase circle radius on hover for highlighting effect
+
+  //   label.style('opacity', 1)
+  //     .attr('x', xScale(d["% of non-white residents"]) + 10)
+  //     .attr('y', yScale(d["Mortality deaths/100,000 births"]) - 10)
+  //     .text(d.State);
+  // })
+  // .on('mouseout', function () {
+  //   d3.select(this)
+  //     .attr('r', 8); // Reset circle radius on mouseout
+
+  //   label.style('opacity', 0); // Hide label on mouseout
+  // });
 
       // Adding x-axis label
   svg.append('text')
@@ -237,6 +242,7 @@ svg.append('text')
   .style('text-anchor', 'middle')
   .text('Mortality deaths/100,000 births');
 
+  //labels for each individual dot on the scatterplot
   svg.selectAll('.text-label')
     .data(scatterplot_data)
     .enter().append('text')
