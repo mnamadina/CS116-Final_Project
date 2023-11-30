@@ -52,6 +52,11 @@ h1, h2, h3 {
 	flex: 1;  
   }
 
+  /* The line chart will take the left half of the screen */
+.barchart-holder {
+	flex: 0 0 50%;
+  }
+
   #table-container {
 	font-family: Arial, sans-serif;
 	border-collapse: collapse;
