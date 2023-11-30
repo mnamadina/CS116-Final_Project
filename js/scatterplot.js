@@ -1,5 +1,3 @@
-/* Brooke's code */
-
 // Initialize a scatterplot. Modeled after Mike Bostock's
 // Reusable Chart framework https://bost.ocks.org/mike/chart/
 function scatterplot() {

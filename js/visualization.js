@@ -173,8 +173,8 @@
   var xScale = d3.scaleLinear().range([0, width]);
   var yScale = d3.scaleLinear().range([height, 0]);
 
-  xScale.domain([d3.min(scatterplot_data, d => d["% living below poverty line (2021)"]), d3.max(scatterplot_data, d => d["% living below poverty line (2021)"])]);
-  yScale.domain([d3.min(scatterplot_data, d => d["Instances of hate crimes (per 100,000)"]), d3.max(scatterplot_data, d => d["Instances of hate crimes (per 100,000)"])]);
+  xScale.domain([d3.min(scatterplot_data, d => d["% of non-white residents"]), d3.max(scatterplot_data, d => d["% of non-white residents"])]);
+  yScale.domain([d3.min(scatterplot_data, d => d["Mortality deaths/100,000 births"]), d3.max(scatterplot_data, d => d["Mortality deaths/100,000 births"])]);
 
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')
@@ -184,7 +184,7 @@
     .attr('x', width / 2)
     .attr('y', 40)
     .style('text-anchor', 'middle')
-    .text('% living below poverty line (2021)');
+    .text('% of non-white residents');
 
   svg.append('g')
     .call(d3.axisLeft(yScale))
@@ -194,21 +194,21 @@
     .attr('y', -60)
     .attr('x', -height / 2)
     .style('text-anchor', 'middle')
-    .text('Instances of hate crimes (per 100,000)');
+    .text('Mortality deaths/100,000 births');
 
   var circles = svg.selectAll('circle')
     .data(scatterplot_data)
     .enter().append('circle')
-    .attr('cx', d => xScale(d["% living below poverty line (2021)"]))
-    .attr('cy', d => yScale(d["Instances of hate crimes (per 100,000)"]))
+    .attr('cx', d => xScale(d["% of non-white residents"]))
+    .attr('cy', d => yScale(d["Mortality deaths/100,000 births"]))
     .attr('r', 8)
     .attr('class', 'scatter-circle');
 
   svg.selectAll('text')
     .data(scatterplot_data)
     .enter().append('text')
-    .attr('x', d => xScale(d["% living below poverty line (2021)"]) + 10) 
-    .attr('y', d => yScale(d["Instances of hate crimes (per 100,000)"]))
+    .attr('x', d => xScale(d["% of non-white residents"]) + 10) 
+    .attr('y', d => yScale(d["Mortality deaths/100,000 births"]))
     .text(d => d.State);
 
   function brush() {
@@ -231,8 +231,8 @@
       ] = d3.event.selection;
 
       circles.classed("selected", d =>
-        x0 <= xScale(d["% living below poverty line (2021)"]) && xScale(d["% living below poverty line (2021)"]) <= x1 &&
-        y0 <= yScale(d["Instances of hate crimes (per 100,000)"]) && yScale(d["Instances of hate crimes (per 100,000)"]) <= y1
+        x0 <= xScale(d["% of non-white residents"]) && xScale(d["% of non-white residents"]) <= x1 &&
+        y0 <= yScale(d["Mortality deaths/100,000 births"]) && yScale(d["Mortality deaths/100,000 births"]) <= y1
       );
 
       circles.filter(".selected")
