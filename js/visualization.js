@@ -205,11 +205,44 @@
     .attr('r', 8)
     .attr('class', 'scatter-circle');
 
-  svg.selectAll('text')
+  circles.on('mouseover', function (event, d) {
+    d3.select(this)
+      .attr('r', 12) // Increase circle radius on hover for highlighting effect
+      .append('text')
+      .attr('class', 'dot-label')
+      .attr('x', xScale(d["% of non-white residents"]) + 10)
+      .attr('y', yScale(d["Mortality deaths/100,000 births"]) - 10)
+      .text(d.State);
+  })
+  .on('mouseout', function () {
+    d3.select(this)
+      .attr('r', 8); // Reset circle radius on mouseout
+    d3.selectAll('.dot-label').remove(); // Remove all dot labels on mouseout
+  });
+
+      // Adding x-axis label
+  svg.append('text')
+  .attr('class', 'axis-label')
+  .attr('x', width / 2)
+  .attr('y', height + margin.top + 25) // Position the label below the x-axis
+  .style('text-anchor', 'middle')
+  .text('% of non-white residents');
+
+// Adding y-axis label
+svg.append('text')
+  .attr('class', 'axis-label')
+  .attr('transform', 'rotate(-90)')
+  .attr('x', -height / 2)
+  .attr('y', -margin.left + 20) // Position the label to the left of the y-axis
+  .style('text-anchor', 'middle')
+  .text('Mortality deaths/100,000 births');
+
+  svg.selectAll('.text-label')
     .data(scatterplot_data)
     .enter().append('text')
+    .attr('class', 'text-label')
     .attr('x', d => xScale(d["% of non-white residents"]) + 10) 
-    .attr('y', d => yScale(d["Mortality deaths/100,000 births"]))
+    .attr('y', d => yScale(d["Mortality deaths/100,000 births"]) - 10) // Adjust the position to better fit the labels
     .text(d => d.State);
 
   function brush() {
@@ -250,14 +283,14 @@
 
   brush(); 
 
-    // Adding mousedown event listener to document body
-    document.body.addEventListener('mousedown', function (event) {
-      const isClickedInsideCircle = event.target.closest('.scatter-circle');
-      const isClickedInsideSelected = event.target.closest('.selected');
-  
-      if (!isClickedInsideCircle && !isClickedInsideSelected) {
-        // Remove 'selected' class and reset circle colors
-        circles.classed('selected', false).attr('fill', ''); // Remove 'selected' class and reset fill color
-      }
-    });
+  // Adding mousedown event listener to document body
+  document.body.addEventListener('mousedown', function (event) {
+    const isClickedInsideCircle = event.target.closest('.scatter-circle');
+    const isClickedInsideSelected = event.target.closest('.selected');
+
+    if (!isClickedInsideCircle && !isClickedInsideSelected) {
+      // Remove 'selected' class and reset circle colors
+      circles.classed('selected', false).attr('fill', ''); // Remove 'selected' class and reset fill color
+    }
+  });
 })();
