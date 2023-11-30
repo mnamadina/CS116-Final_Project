@@ -1,6 +1,6 @@
 d3.csv("../data/insurance2.json", function(error, data) {
   if (error) {
-      console.error("Error loading the CSV file:", error);
+      console.error("Error loading the insurance2.json file:", error);
   } else {
       console.log(data[0]);
     }
