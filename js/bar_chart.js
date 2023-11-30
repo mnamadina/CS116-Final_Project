@@ -1,7 +1,15 @@
-// right now this is just a skeleton code that I will be modifying and fixing later on.
+// Function to read and process CSV data
+function readCSV() {
+  d3.csv("../data/insurance.csv").then(function(data) {
+    // Do something with the data
+    console.log(data);
 
+    // Example: Create a simple table
+    createTable(data);
+  });
+}
 
-function Bar_Chart(){
+function barChart(data){
     
     let margin = {
         top: 60,
@@ -222,3 +230,7 @@ function Bar_Chart(){
   
     return chart;
   }
+
+  window.onload = function() {
+    readCSV();
+  };
