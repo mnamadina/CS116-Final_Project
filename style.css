@@ -47,6 +47,7 @@ h1, h2, h3 {
   height: 100%;
 }
 
+
 /* Important to add if we want the scatterplot to take take the right half of the screen */
 .scatterplot-holder {
 	flex: 1;  
@@ -73,6 +74,18 @@ h1, h2, h3 {
 	padding: 8px;
 	text-align: left;
   }
+
+  /*
+  Used to adjust the size and formatting for the table.
+  */
+  .table-holder {
+	width: 65%; /* Adjust the width as needed */
+	margin-top: 20px;
+	align-self: flex-end;
+	box-sizing: border-box;
+	padding: 20px;
+  }
+
     
 /* Fork on GitHub ribbon via https://codepo8.github.io/css-fork-on-github-ribbon/# */  
 #forkongithub a{
