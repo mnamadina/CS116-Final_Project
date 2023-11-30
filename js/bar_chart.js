@@ -1,17 +1,12 @@
-// Function to read and process CSV data
-function readCSV() {
-  d3.csv("../data/insurance.csv").then(function(data) {
-
-    if (error) {
-      console.error("Error loading the insurance.csv file:", error);
+d3.csv("../data/insurance2.json", function(error, data) {
+  if (error) {
+      console.error("Error loading the CSV file:", error);
   } else {
       console.log(data[0]);
-      barChart(data);
-    }
-  });
-}
+    }
+});
 
-function barChart(data){
+function barChart(){
     
     let margin = {
         top: 60,
@@ -232,7 +227,3 @@ function barChart(data){
   
     return chart;
   }
-
-  window.onload = function() {
-    readCSV();
-  };
