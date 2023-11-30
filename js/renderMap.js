@@ -27,4 +27,30 @@
       .enter()
       .append('path')
       .attr('d', path);
-  })();
+  
+  //     function ready(error, topo) {
+
+  //       let mouseOver = function(d) {
+  //         d3.selectAll(".state")
+  //           .transition()
+  //           .duration(200)
+  //           .style("opacity", .5)
+  //         d3.select(this)
+  //           .transition()
+  //           .duration(200)
+  //           .style("opacity", 1)
+  //           .style("stroke", "black")
+  //       }
+      
+  //       let mouseLeave = function(d) {
+  //         d3.selectAll(".state")
+  //           .transition()
+  //           .duration(200)
+  //           .style("opacity", .8)
+  //         d3.select(this)
+  //           .transition()
+  //           .duration(200)
+  //           .style("stroke", "transparent")
+  //       }
+  // }
+})();

@@ -74,7 +74,6 @@
         <script type="text/javascript" src="./js/renderMap.js"></script>
         <script src="working.js"></script>
       </svg>
-      <p>Map should appear here...</p>
     </div>
 
     <div class="barchart-holder">
@@ -89,22 +88,49 @@
   <!-- Your writeup goes here -->
   <div class = "content-column">
 
-    <h1>Demo Video</h1>
-    
-    <p><em>Embedded MP4 demo video using the HTML5 &lt;video&gt; tag. For example, this screen recording Prof. Cody Dunne made of Mike Bostock's flexible transitions in D3 slide:</em></p>
-    
-    <video controls width="100%">
-      <source src="http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4" type="video/mp4">
-      <p>Your browser doesn't support HTML5 video. Here is
-       a <a href="http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4">link to the video</a> instead.</p>
-    </video>
-
     <h1>Visualization explanation</h1>
     
     <p><em>Final visualization screenshots (PNG images), design justifications, UI walk-through, and linked presentation slides.</em></p>
+    <div class="visual - explanation">
+      <H3>Project Overview</H3>
+        <p>
+          Our project is about visualizing the status of the 3 features: maternal mortality, healthcare spending, and insurance coverage, all of which would be linked and interacted using a common field ‘state’ (by state, we mean individual states of the U.S). </br>
+          By generating appropriate visualizations that deliver the status of the three features using primarily d3.js, we hope to be able to deliver the general status and possible correlations between the three features to the general public. </br>
+          To achieve our desired delivery, we would take advantage of linking/brushing (between the visualizations to enhance the interactiveness of individual data point across our datasets), infographic types (bar charts, US map, scatter plot, and table), as well as color coding and other aspects learned throughout COSI 116 to optimize the visual delivery. 
+        </p>
+      <h3>Target Audience</h3>
+        <p>
+          As we intend to deliver a landscape of health-related features and how they might possibly be interrelated, the target audience that would be best addressed is the general public (specifically, web surfers). </br>
+          It is easy to come across many infographics intended to raise awareness or pique interest in particular topics/subjects targeted for the general public browsing the web. Given the web is open for anyone and is used by people with a wide range of backgrounds and understanding on the topic that the infographics are focused on, we do not intend to encode any in-depth/professional data from biomedical or actuarial domains and the likes. </br>
+          Conversely, to catch the web surfers’ attention sweeply and effectively, each visualization needs to encode data in a way that intuitively delivers the status of the features and their possible interrelatedness. This would require trimmed and cleaned up data to present a holistic picture, consistent color scheme for linking, brushing, and highlighting to prevent/minimize distractions, and yet not a cookie-cutter, cliche visualizations to stop web surfers from scrolling down/clicking away.
+        </p>
+      <h3>Visualizations:</h3>
+        <p>
+          There are 4 primary visualizations that we plan to create and x subsidiary visualizations.</br>
+          The 4 primary visualizations are: US map (for healthcare expenditure), bar chart (for insurance coverage), scatter plot (for maternal mortality), and table (showing numerical data points of all 3 features). 
+
+       </p>
+    </div>
 
     <h1>Data Analysis</h1>
     <p><em>Summary of data, data types, and data preprocessing.</em></p>
+    <h3>Primary Datasets for visualizations:</h3>
+    <ol>
+      <li>Maternal Mortalities across States</li>
+        <p span="analysis - mortality">
+          Add descriptions on maternal mortalities datasets.
+        </p>
+      <li>Insurance Coverage by States</li>
+        <p span="analysis - insurance">
+          Add descriptions on insurance-coverage datasets.
+        </p>
+      <li>Healthcare Expenditure by States</li>
+        <p span="analysis - expenditure">
+          Healthcare Expenditure explores both the aggregate and per capita healthcare related expenditures by states.
+          Downloaded from <a href="https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data/state-residence">cms.gov</a>,
+          the data is classified by each state, region(NE, NW, ME, MW, SE, SW), and categories (clinical, items, surgical, etc.) of healthcare related spendings.
+        </p>
+    </ol>
 
     <p><em>Expectation: Data sources match the problem statement and are appropriate. These descriptions should be very explicit so someone could read your page and properly reproduce your results.</em></p>
 
