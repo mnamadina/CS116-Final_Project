@@ -10,7 +10,7 @@
     {"State": "Alaska", "Insured": 88.6},
     {"State": "Arizona", "Insured": 89.3},
     {"State": "Arkansas", "Insured": 90.8},
-    {"State": "California", "Mortality": 93},
+    {"State": "California", "Insured": 93},
     {"State": "Colorado", "Insured": 92},
     {"State": "Connecticut", "Insured": 94.8},
     {"State": "Delaware", "Insured": 94.3},
