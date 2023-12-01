@@ -5,7 +5,6 @@
 
   var barchart_data =
   [
-    {"State": "United States", "Insured": 91.4},
     {"State": "Alabama", "Insured": 90.1},
     {"State": "Alaska", "Insured": 88.6},
     {"State": "Arizona", "Insured": 89.3},
