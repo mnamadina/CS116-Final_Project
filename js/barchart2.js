@@ -3,8 +3,7 @@
 // console.log("visualization.js is up!");
 (() => {
 
-  var barchart_data =
-  [
+  var barchart_data = [
     {"State": "Alabama", "Insured": 90.1},
     {"State": "Alaska", "Insured": 88.6},
     {"State": "Arizona", "Insured": 89.3},
@@ -56,11 +55,11 @@
     {"State": "West Virginia", "Insured": 93.9},
     {"State": "Wisconsin", "Insured": 94.6},
     {"State": "Wyoming", "Insured": 87.8}
-  ]
+  ];
+
   var margin = { top: 30, right: 30, bottom: 70, left: 60 };
   var width = 800 - margin.left - margin.right;
   var height = 500 - margin.top - margin.bottom;
-
 
   var svg = d3.select('#barchart') // Assuming 'barchart' is the container ID
     .append('svg')
@@ -79,7 +78,7 @@
   yScale.domain([0, d3.max(barchart_data, d => d.Insured)]);
 
   // Append bars to the SVG
-  svg.selectAll('.bar')
+  var bar = svg.selectAll('bar')
     .data(barchart_data)
     .enter().append('rect')
     .attr('class', 'bar')
@@ -110,4 +109,55 @@
     .attr('y', -margin.left + 20) // Position the label to the left of the y-axis
     .style('text-anchor', 'middle')
     .text('Insured Percentage'); // Change this to your y-axis label text
+
+  // IMPLEMENTING THE HIGHLIGHTING 
+  function brush() {
+    const brush = d3.brush()
+      .on("start brush", highlight)
+      .on("end", brushEnd)
+      .extent([
+        [-margin.left, -margin.bottom],
+        [width + margin.right, height + margin.top]
+      ]);
+
+    svg.append('g')
+      .call(brush);
+
+    function highlight() {
+      const [
+        [x0, y0],
+        [x1, y1]
+      ] = d3.event.selection;
+
+      bar.classed('selected', d =>
+        x0 <= xScale(d.State) && xScale(d.State) <= x1 &&
+        y0 <= yScale(d.Insured) && yScale(d.Insured) <= y1
+      );
+
+      bar.attr('fill', function () {
+        return d3.select(this).classed('selected') ? 'red' : ''; // Apply red fill to selected bars
+      });
+    }
+
+    function brushEnd() {
+      // We don't want infinite recursion
+      if (d3.event.sourceEvent.type != "end") {
+        d3.select(this).call(brush.move, null);
+      }
+    }
+  }
+
+  brush();
+
+  // Adding mousedown event listener to document body
+  document.body.addEventListener('mousedown', function (event) {
+    const isClickedInsideCircle = event.target.closest('.bar');
+    const isClickedInsideSelected = event.target.closest('.selected');
+
+    if (!isClickedInsideCircle && !isClickedInsideSelected) {
+      // Remove 'selected' class and reset circle colors
+      bar.classed('selected', false).attr('fill', ''); // Remove 'selected' class and reset fill color
+    }
+  });
+
 })();

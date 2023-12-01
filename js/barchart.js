@@ -1,18 +1,15 @@
-/* global D3 */
-
-console.log("barchart file");
-
+// Immediately Invoked Function Expression to limit access to our 
+// variables and prevent 
+// console.log("visualization.js is up!");
 (() => {
 
-  // Will be edited to follow the path later
   var barchart_data =
   [
-    {"State": "United States", "Insured": 91.4},
     {"State": "Alabama", "Insured": 90.1},
     {"State": "Alaska", "Insured": 88.6},
     {"State": "Arizona", "Insured": 89.3},
     {"State": "Arkansas", "Insured": 90.8},
-    {"State": "California", "Mortality": 93},
+    {"State": "California", "Insured": 93},
     {"State": "Colorado", "Insured": 92},
     {"State": "Connecticut", "Insured": 94.8},
     {"State": "Delaware", "Insured": 94.3},
@@ -61,88 +58,113 @@ console.log("barchart file");
     {"State": "Wyoming", "Insured": 87.8}
   ]
 
-
-/* global D3 */
-let chart = barchart();
-  chart("#chart-container", barchart_data);
-
-function barchart() {
-  console.log("setting the measurements for the barchart");
-
-  // Based on Mike Bostock's margin convention
-  // https://bl.ocks.org/mbostock/3019563
-  let margin = {
-    top: 60,
-    left: 50,
-    right: 30,
-    bottom: 35
-  },
-
-    width = 500 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom,
-    xValue = d => d[0],
-    yValue = d => d[1],
-    xLabelText = "",
-    yLabelText = "",
-    yLabelOffsetPx = 0,
-    xScale = d3.scalePoint(),
-    yScale = d3.scaleLinear(),
-    dispatcher;
+  var margin = { top: 30, right: 30, bottom: 70, left: 60 };
+  var width = 800 - margin.left - margin.right;
+  var height = 500 - margin.top - margin.bottom;
 
 
-  // Create the chart by adding an svg to the div with the id 
-  // specified by the selector using the given data
-  function chart(selector, data) {
-    console.log("calling the chart in the barchart");
-    let svg = d3.select(selector)
-      .append("svg")
-      .attr("preserveAspectRatio", "xMidYMid meet")
-      .attr("viewBox", [0, 0, width + margin.left + margin.right, height + margin.top + margin.bottom].join(' '))
-      .classed("svg-content", true);
+  var svg = d3.select('#barchart') // Assuming 'barchart' is the container ID
+    .append('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    svg = svg.append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  var xScale = d3.scaleBand().range([0, width]).padding(0.1);
+  var yScale = d3.scaleLinear().range([height, 0]);
 
-    // Define scales
-    // Update xScale and yScale domains based on data
-    xScale
-      .domain(barchart_data.map(d => d.State))
-      .range([0, width]);
+  // Domain for xScale (states)
+  xScale.domain(barchart_data.map(d => d.State));
 
-    yScale
-      .domain([0, d3.max(barchart_data, d => d.Insured)])
-      .nice()
-      .range([height, 0]);
+  // Domain for yScale (values)
+  yScale.domain([0, d3.max(barchart_data, d => d.Insured)]);
 
-    // X axis
-    let xAxis = svg.append("g")
-      .attr("transform", "translate(0," + (height) + ")")
-      .call(d3.axisBottom(xScale));
+  // Append bars to the SVG
+  svg.selectAll('bar')
+    .data(barchart_data)
+    .enter().append('rect')
+    .attr('class', 'bar')
+    .attr('x', d => xScale(d.State))
+    .attr('width', xScale.bandwidth())
+    .attr('y', d => yScale(d.Insured))
+    .attr('height', d => height - yScale(d.Insured))
+    .attr('fill', 'steelblue'); // Bar color, you can change this as needed
 
-    // Put X axis tick labels at an angle
-    xAxis.selectAll("text")
-      .style("text-anchor", "end")
-      .attr("dx", "-.8em")
-      .attr("dy", ".15em")
-      .attr("transform", "rotate(-65)");
+  // Append x-axis
+  svg.append('g')
+    .attr('transform', 'translate(0,' + height + ')')
+    .call(d3.axisBottom(xScale))
+    .selectAll('text')
+    .attr('dy', '.35em')
+    .attr('transform', 'rotate(45)')
+    .style('text-anchor', 'start');
 
-    // X axis label
-    xAxis.append("text")
-      .attr("class", "axisLabel")
-      .attr("transform", "translate(" + (width - 50) + ",-10)")
-      .text(xLabelText);
+  // Append y-axis
+  svg.append('g')
+    .call(d3.axisLeft(yScale));
 
-    // Y axis and label
-    let yAxis = svg.append("g")
-      .call(d3.axisLeft(yScale))
-      .append("text")
-      .attr("class", "axisLabel")
-      .attr("transform", "translate(" + yLabelOffsetPx + ", -12)")
-      .text(yLabelText);
+  // Append y-axis label
+  svg.append('text')
+    .attr('class', 'axis-label')
+    .attr('transform', 'rotate(-90)')
+    .attr('x', -height / 2)
+    .attr('y', -margin.left + 20) // Position the label to the left of the y-axis
+    .style('text-anchor', 'middle')
+    .text('Insured Percentage'); // Change this to your y-axis label text
+})();
 
-    return chart;
+// IMPLEMENTING THE HIGHLIGHTING 
+
+function brush() {
+  
+  var margin = { top: 30, right: 30, bottom: 70, left: 60 };
+  var width = 800 - margin.left - margin.right;
+  var height = 500 - margin.top - margin.bottom;
+
+  const brush = d3.brush()
+    .on("start brush", highlight) 
+    .on("end", brushEnd) 
+    .extent([
+      [-margin.left, -margin.bottom],
+      [width + margin.right, height + margin.top]
+    ]);
+
+  svg.append('g')
+    .call(brush);
+
+    function highlight() {
+      const [
+        [x0, y0],
+        [x1, y1]
+      ] = d3.event.selection;
+
+      bar.classed('selected', d =>
+        x0 <= xScale(d.State) && xScale(d.State) <= x1 &&
+        y0 <= yScale(d.Insured) && yScale(d.Insured) <= y1
+      );
+
+      bar.attr('fill', function () {
+        return d3.select(this).classed('selected') ? 'red' : ''; // Apply red fill to selected bars
+      });
+    }
+
+  function brushEnd() {
+    // We don't want infinite recursion
+    if (d3.event.sourceEvent.type != "end") {
+      d3.select(this).call(brush.move, null);
+    }
   }
-
-  return chart;
 }
-})
+
+brush(); 
+
+// Adding mousedown event listener to document body
+document.body.addEventListener('mousedown', function (event) {
+  const isClickedInsideCircle = event.target.closest('.barchart-bar');
+  const isClickedInsideSelected = event.target.closest('.selected');
+
+  if (!isClickedInsideCircle && !isClickedInsideSelected) {
+    // Remove 'selected' class and reset circle colors
+    circles.classed('selected', false).attr('fill', ''); // Remove 'selected' class and reset fill color
+  }
+});
