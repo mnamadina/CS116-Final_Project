@@ -78,7 +78,7 @@
   yScale.domain([0, d3.max(barchart_data, d => d.Insured)]);
 
   // Append bars to the SVG
-  var bar = svg.selectAll('bar')
+  var bars = svg.selectAll('bar')
     .data(barchart_data)
     .enter().append('rect')
     .attr('class', 'bar')
@@ -86,7 +86,8 @@
     .attr('width', xScale.bandwidth())
     .attr('y', d => yScale(d.Insured))
     .attr('height', d => height - yScale(d.Insured))
-    .attr('fill', 'steelblue'); // Bar color, you can change this as needed
+    .attr('fill', 'steelblue') // Bar color, you can change this as needed
+    .on('click', handleBarClick); // Add click event listener to each bar
 
   // Append x-axis
   svg.append('g')
@@ -110,54 +111,36 @@
     .style('text-anchor', 'middle')
     .text('Insured Percentage'); // Change this to your y-axis label text
 
-  // IMPLEMENTING THE HIGHLIGHTING 
-  function brush() {
-    const brush = d3.brush()
-      .on("start brush", highlight)
-      .on("end", brushEnd)
-      .extent([
-        [-margin.left, -margin.bottom],
-        [width + margin.right, height + margin.top]
-      ]);
+  // Add brush for multi-selection
+  var brush = d3.brushX()
+    .extent([[0, 0], [width, height]])
+    .on("brush end", brushed);
 
-    svg.append('g')
-      .call(brush);
+  svg.append("g")
+    .attr("class", "brush")
+    .call(brush);
 
-    function highlight() {
-      const [
-        [x0, y0],
-        [x1, y1]
-      ] = d3.event.selection;
+  function handleBarClick(d) {
+    // Toggle the 'selected' class for the clicked bar
+    d3.select(this).classed('selected', !d3.select(this).classed('selected'));
 
-      bar.classed('selected', d =>
-        x0 <= xScale(d.State) && xScale(d.State) <= x1 &&
-        y0 <= yScale(d.Insured) && yScale(d.Insured) <= y1
-      );
-
-      bar.attr('fill', function () {
-        return d3.select(this).classed('selected') ? 'red' : ''; // Apply red fill to selected bars
-      });
-    }
-
-    function brushEnd() {
-      // We don't want infinite recursion
-      if (d3.event.sourceEvent.type != "end") {
-        d3.select(this).call(brush.move, null);
-      }
-    }
+    // Set the fill color based on the 'selected' class
+    bars.attr('fill', function (barData) {
+      return barData === d && d3.select(this).classed('selected') ? 'red' : 'steelblue';
+    });
   }
 
-  brush();
+  function brushed() {
+    var selection = d3.event.selection;
+    bars.classed('selected', function (d) {
+      var barX = xScale(d.State);
+      return selection && barX >= selection[0] && barX + xScale.bandwidth() <= selection[1];
+    });
 
-  // Adding mousedown event listener to document body
-  document.body.addEventListener('mousedown', function (event) {
-    const isClickedInsideCircle = event.target.closest('.bar');
-    const isClickedInsideSelected = event.target.closest('.selected');
-
-    if (!isClickedInsideCircle && !isClickedInsideSelected) {
-      // Remove 'selected' class and reset circle colors
-      bar.classed('selected', false).attr('fill', ''); // Remove 'selected' class and reset fill color
-    }
-  });
+    // Set the fill color based on the 'selected' class
+    bars.attr('fill', function (barData) {
+      return d3.select(this).classed('selected') ? 'red' : 'steelblue';
+    });
+  }
 
 })();
