@@ -67,10 +67,9 @@
     <div class="scatterplot-holder" id="scatterplot"></div>
     <h3> Insurance Coverage by States</h3>
     <div class="barchart-holder" id="barchart"></div>
-    <svg id="vis-svg"
+    <!-- <svg id="vis-svg"
       preserveAspectRatio="xMidYMid meet" class="marks" viewBox="0 0 821 520" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Don't delete the closing tag! -->
-    </svg>
+    </svg> -->
 
     <div class="map-holder">
       <h3>Healthcare Expenditure by States</h3>
@@ -79,7 +78,7 @@
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script src="https://d3js.org/topojson.v3.min.js"></script>
         <script type="text/javascript" src="./js/renderMap.js"></script>
-        <script src="working.js"></script>
+
       </svg>
     </div>
 
@@ -127,24 +126,32 @@
     <p><em>Summary of data, data types, and data preprocessing.</em></p>
     <h3>Primary Datasets for visualizations:</h3>
     <ol>
-      <li>Maternal Mortalities across States</li>
+      <li><strong>Maternal Mortalities across States</strong></li>
         <p span="analysis - mortality">
-          Add descriptions on maternal mortalities datasets.
+          <em>Progress made for Sprint2: </br>
+          1. Scatterplot properly displayed with real data (maternal mortality on x-axis and %of non-white residents on y-axis)</br>
+          2. Label(State names) added</br>
+          3. Brushing enabled: bubbles highlighted in red when hovered.</em>
         </p>
-      <li>Insurance Coverage by States</li>
+      <li><strong>Insurance Coverage by States</strong></li>
         <p span="analysis - insurance">
-          Add descriptions on insurance-coverage datasets.
+          <em>Progress made for Sprint2: </br>
+            1. Bar chart properly displayed with real data (insurance-coverage of each state)</br>
+            2. Proper labels added: insurance coverage on y-axis and states on x-axis</br>
+            3. Brushing enabled: bars highlighted in red when hovered.</em>
         </p>
-      <li>Healthcare Expenditure by States</li>
+      <li><strong>Healthcare Expenditure by States</strong></li>
         <p span="analysis - expenditure">
           Healthcare Expenditure explores both the aggregate and per capita healthcare related expenditures by states.
           Downloaded from <a href="https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data/state-residence">cms.gov</a>,
           the data is classified by each state, region(NE, NW, ME, MW, SE, SW), and categories (clinical, items, surgical, etc.) of healthcare related spendings.
         </p>
+        <em>Progress made for Sprint2: </br>
+          1. US Map properly displayed</br>
+          2. Brushing enabled: state highlighted in bisque when hovered.</em>
     </ol>
 
-    <p><em>Expectation: Data sources match the problem statement and are appropriate. These descriptions should be very explicit so someone could read your page and properly reproduce your results.</em></p>
-
+    
     <h1>Task Analysis</h1>
 
     <p><em>Summary of task table.</em></p>
