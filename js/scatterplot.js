@@ -453,26 +453,6 @@
     .attr('r', 8) // radius (should change depending on certain factors)
     .attr('class', 'scatter-circle');
 
-  // var label = svg.append('text')
-  //   .attr('class', 'dot-label')
-  //   .style('opacity', 0);
-
-  // circles.on('mouseover', function (event, d) {
-  //   d3.select(this)
-  //     .attr('r', 12); // Increase circle radius on hover for highlighting effect
-
-  //   label.style('opacity', 1)
-  //     .attr('x', xScale(d["% of non-white residents"]) + 10)
-  //     .attr('y', yScale(d["Mortality deaths/100,000 births"]) - 10)
-  //     .text(d.State);
-  // })
-  // .on('mouseout', function () {
-  //   d3.select(this)
-  //     .attr('r', 8); // Reset circle radius on mouseout
-
-  //   label.style('opacity', 0); // Hide label on mouseout
-  // });
-
       // Adding x-axis label
   svg.append('text')
   .attr('class', 'axis-label')
@@ -499,41 +479,52 @@ svg.append('text')
     .attr('y', d => yScale(d["Mortality deaths/100,000 births"]) - 10) // Adjust the position to better fit the labels
     .text(d => d.State);
 
-  function brush() {
-    const brush = d3.brush()
-      .on("start brush", highlight) 
-      .on("end", brushEnd) 
-      .extent([
-        [-margin.left, -margin.bottom],
-        [width + margin.right, height + margin.top]
-      ]);
-
-    svg.append('g')
-      .call(brush);
-
+    function brush() {
+      const brush = d3.brush()
+        .on("start brush", highlight)
+        .on("end", brushEnd)
+        .extent([
+          [-margin.left, -margin.bottom],
+          [width + margin.right, height + margin.top]
+        ]);
+    
+      svg.append('g')
+        .call(brush);
+    
       function highlight() {
         const [
           [x0, y0],
           [x1, y1]
         ] = d3.event.selection;
-  
+    
         circles.classed('selected', d =>
           x0 <= xScale(d["% of non-white residents"]) && xScale(d["% of non-white residents"]) <= x1 &&
           y0 <= yScale(d["Mortality deaths/100,000 births"]) && yScale(d["Mortality deaths/100,000 births"]) <= y1
         );
-  
+    
         circles.attr('fill', function () {
           return d3.select(this).classed('selected') ? 'red' : ''; // Apply red fill to selected circles
         });
+    
+        // Toggle display of labels based on the brushed area
+        svg.selectAll('.text-label')
+          .style('display', d =>
+            x0 <= xScale(d["% of non-white residents"]) && xScale(d["% of non-white residents"]) <= x1 &&
+            y0 <= yScale(d["Mortality deaths/100,000 births"]) && yScale(d["Mortality deaths/100,000 births"]) <= y1
+              ? 'block' // Show labels within the brushed area
+              : 'none' // Hide labels outside the brushed area
+          );
       }
-
-    function brushEnd() {
-      // We don't want infinite recursion
-      if (d3.event.sourceEvent.type != "end") {
-        d3.select(this).call(brush.move, null);
+    
+      function brushEnd() {
+        if (d3.event.sourceEvent.type !== "end") {
+          d3.select(this).call(brush.move, null);
+        }
       }
     }
-  }
+    
+    brush();
+    
 
   brush(); 
 
