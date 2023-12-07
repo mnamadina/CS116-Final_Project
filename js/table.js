@@ -15,6 +15,13 @@ function createEmptyTable() {
     "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
   ];
 
+  const maternityDeaths = [41.9, 22.4, 30, 40.6, 9.5, 15.9, 16.7, 18.9, 23.8, 33.4, 
+                          16.9, 18.2, 16.9, 30, 18.7, 20.9, 36.5, 39.4, 52, 22,
+                          14.2, 18.4, 12.4, 38, 25.2, 26.6, 22.4, 22.4, 16.7, 24.1,
+                          31, 19.8, 25.4, 21.2, 23.7, 29.8, 16.8, 15.6, 11.2, 30.3,
+                          25.9, 40.2, 27, 14.9, null, 26.8, 20.4, 22.3, 10.8, null
+  ];
+
   // Append the header row
   table.append("thead")
     .append("tr")
@@ -24,14 +31,17 @@ function createEmptyTable() {
     .text(d => d);
 
   // Append the data rows
-  table.selectAll("tr.data-row")
+  const rows = table.selectAll("tr.data-row")
     .data(stateList)
     .enter().append("tr")
-    .attr("class", "data-row")
-    .selectAll("td")
-    .data(d => [d, "", "", "", ""]) // Add empty strings for other columns
-    .enter().append("td")
-    .text(d => d);
+    .attr("class", "data-row");
+
+  // Append cells for each column
+  rows.append("td").text(d => d); // State column
+  rows.append("td").text(""); // Total Healthcare Expenditure column
+  rows.append("td").text(""); // Spending on Medicaid column
+  rows.append("td").text(""); // Health Insurance Coverage Percentage column
+  rows.append("td").text((d, i) => (maternityDeaths[i] !== null) ? maternityDeaths[i].toFixed(1) : "N/A"); // Maternity Deaths column
 
   // Append an empty tbody
   table.append("tbody");
