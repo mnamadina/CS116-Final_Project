@@ -22,6 +22,12 @@ function createEmptyTable() {
                           25.9, 40.2, 27, 14.9, null, 26.8, 20.4, 22.3, 10.8, null
   ];
 
+  const insuredPercentage = [90.1, 88.6, 89.3, 90.8, 93, 92, 94.8, 94.3, 96.3,87.9,
+    87.4, 96.1, 91.2, 93, 92.5, 95.2, 90.8, 94.3, 92.4, 94.3, 93.9, 97.5, 95,
+    95.5, 88.1, 90.6, 91.8, 92.9, 88.4, 94.9, 92.8, 90, 94.8, 89.6, 92.1, 93.5,
+    86.2, 93.9, 94.5, 95.7, 90, 90.5, 90, 82, 91, 96.3, 93.2, 93.6, 93.9, 94.6, 87.8
+  ];
+
   // Append the header row
   table.append("thead")
     .append("tr")
@@ -40,7 +46,7 @@ function createEmptyTable() {
   rows.append("td").text(d => d); // State column
   rows.append("td").text(""); // Total Healthcare Expenditure column
   rows.append("td").text(""); // Spending on Medicaid column
-  rows.append("td").text(""); // Health Insurance Coverage Percentage column
+  rows.append("td").text((d, i) => (insuredPercentage[i] !== null) ? insuredPercentage[i].toFixed(1) : "N/A"); // Health Insurance Covered Percentage column
   rows.append("td").text((d, i) => (maternityDeaths[i] !== null) ? maternityDeaths[i].toFixed(1) : "N/A"); // Maternity Deaths column
 
   // Append an empty tbody
