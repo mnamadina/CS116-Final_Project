@@ -8,11 +8,18 @@ function createEmptyTable() {
     .attr("class", "table");
 
   const stateList = [
-    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
+    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia",
     "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland",
     "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey",
     "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina",
     "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+  ];
+
+  const finalExpenditures = [
+    18561,27284, 17511, 18675, 20598, 17166, 24978, 25798, 28763, 19732, 17517, 20582, 16297,
+    20381, 21032, 19577, 18817, 20514, 21031, 24154, 21680, 26638, 19793,21693, 18788, 19841,
+    20424, 21028, 16696, 23587, 23734, 17804, 28014, 17835, 22604, 20957, 18889, 20141, 23207,
+    23387, 17532, 24990, 18672, 16812, 15044, 25510, 18390, 18530, 25536, 19963, 21978,
   ];
 
   const maternityDeaths = [41.9, 22.4, 30, 40.6, 9.5, 15.9, 16.7, 18.9, 23.8, 33.4, 
@@ -27,6 +34,7 @@ function createEmptyTable() {
     95.5, 88.1, 90.6, 91.8, 92.9, 88.4, 94.9, 92.8, 90, 94.8, 89.6, 92.1, 93.5,
     86.2, 93.9, 94.5, 95.7, 90, 90.5, 90, 82, 91, 96.3, 93.2, 93.6, 93.9, 94.6, 87.8
   ];
+
 
   // Append the header row
   table.append("thead")
@@ -44,7 +52,7 @@ function createEmptyTable() {
 
   // Append cells for each column
   rows.append("td").text(d => d); // State column
-  rows.append("td").text(""); // Total Healthcare Expenditure column
+  rows.append("td").text((d, i) => finalExpenditures[i].toLocaleString("en-US", { style: "currency", currency: "USD" })); // Total Healthcare Expenditure column
   rows.append("td").text((d, i) => (insuredPercentage[i] !== null) ? insuredPercentage[i].toFixed(1) : "N/A"); // Health Insurance Covered Percentage column
   rows.append("td").text((d, i) => (maternityDeaths[i] !== null) ? maternityDeaths[i].toFixed(1) : "N/A"); // Maternity Deaths column
 
