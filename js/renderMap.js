@@ -3,6 +3,9 @@
   const us = await d3.json('https://d3js.org/us-10m.v2.json');
   const data = topojson.feature(us, us.objects.states).features;
 
+  // Load the expenditure data from CSV
+  const expenditureData = await d3.csv("../data/final_expenditure.csv");
+
   // Step 3. Draw the SVG.
   // First let's create an empty SVG with 960px width and 600px height.
   const width = 960;
@@ -17,22 +20,40 @@
 
   // Function to handle mouseover event
   function handleMouseOver(d) {
-      d3.select(this)
-          .transition()
-          .duration(200)
-          .style('fill', 'bisque'); // Change the color on mouseover
+    const currState = d3.select(this);
+    currState.transition()
+        .duration(200)
+        .style('fill', 'bisque'); // Change the color on mouseover
+    
+    // find the corresponding data in the expenditureData
+    const expenditure = expenditureData.find(entry => entry.State === d.properties.name);
+
+    // Display state name and expenditure
+    svg.append('text')
+        .attr('x', width / 2)
+        .attr('y', height / 2)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '16px')
+        .attr('fill', 'black')
+        .text(`${d.properties.name}: $${expenditure.Expenditure}`);
+
   }
 
   // Function to handle mouseleave event
   function handleMouseLeave(d) {
-      d3.select(this)
-          .transition()
-          .duration(200)
-          .style('fill', 'cornflowerblue'); // Change back to original color on mouseleave
+
+    const currState = d3.select(this);
+    currState.transition()
+        .duration(200)
+        .style('fill', 'cornflowerblue'); // Change back to original color on mouseleave
+    
+    // Remove the displayed state name and expenditure
+    svg.selectAll('text').remove();
   }
 
   // Function to handle click event
   function handleMouseClick(d) {
+    
       // Toggle the highlighted state on click
       const currentState = d3.select(this);
       const isHighlighted = currentState.classed('highlighted');
