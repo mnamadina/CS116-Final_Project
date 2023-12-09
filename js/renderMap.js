@@ -34,7 +34,7 @@
         .attr('y', height / 2)
         .attr('text-anchor', 'middle')
         .attr('font-size', '16px')
-        .attr('fill', 'black')
+        .attr('fill', 'aquamarine')
         .text(`${d.properties.name}: $${expenditure.Expenditure}`);
 
   }
@@ -53,7 +53,7 @@
 
   // Function to handle click event
   function handleMouseClick(d) {
-    
+
       // Toggle the highlighted state on click
       const currentState = d3.select(this);
       const isHighlighted = currentState.classed('highlighted');
