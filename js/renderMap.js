@@ -6,11 +6,12 @@
   // Load the expenditure data from CSV
   const expenditureData = await d3.csv("../data/final_expenditure.csv");
 
+  const mapHolder = d3.select('.map-holder');
   // Step 3. Draw the SVG.
   // First let's create an empty SVG with 960px width and 600px height.
   const width = 960;
   const height = 600;
-  const svg = d3.select('body')
+  const svg = mapHolder
       .append('svg')
       .attr('width', width)
       .attr('height', height);
