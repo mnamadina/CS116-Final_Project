@@ -32,7 +32,7 @@ function createEmptyTable() {
   table.append("thead")
     .append("tr")
     .selectAll("th")
-    .data(["State", "Total Healthcare Expenditure", "Spending on Medicaid", "Health Insurance Coverage Percentage", "Maternity Deaths"])
+    .data(["State", "Total Healthcare Expenditure", "Health Insurance Coverage Percentage", "Maternity Deaths"])
     .enter().append("th")
     .text(d => d);
 
@@ -45,7 +45,6 @@ function createEmptyTable() {
   // Append cells for each column
   rows.append("td").text(d => d); // State column
   rows.append("td").text(""); // Total Healthcare Expenditure column
-  rows.append("td").text(""); // Spending on Medicaid column
   rows.append("td").text((d, i) => (insuredPercentage[i] !== null) ? insuredPercentage[i].toFixed(1) : "N/A"); // Health Insurance Covered Percentage column
   rows.append("td").text((d, i) => (maternityDeaths[i] !== null) ? maternityDeaths[i].toFixed(1) : "N/A"); // Maternity Deaths column
 
@@ -57,3 +56,4 @@ function createEmptyTable() {
 
 // Call the function to create an empty table initially
 createEmptyTable();
+

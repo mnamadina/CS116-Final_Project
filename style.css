@@ -1,44 +1,44 @@
 /* General formatting */
 body {
-	padding: 0 10px;
-	font: 18px/1.5 -apple-system, BlinkMacSystemFont, "avenir next",avenir, "Segoe UI", "lucida grande", "helvetica neue", helvetica, "Fira Sans",roboto, noto, "Droid Sans", cantarell, oxygen, ubuntu, "franklin gothic medium", "century gothic", "Liberation Sans",
-	sans-serif;
+    padding: 0 10px;
+    font: 18px/1.5 -apple-system, BlinkMacSystemFont, "avenir next",avenir, "Segoe UI", "lucida grande", "helvetica neue", helvetica, "Fira Sans",roboto, noto, "Droid Sans", cantarell, oxygen, ubuntu, "franklin gothic medium", "century gothic", "Liberation Sans",
+    sans-serif;
 }
 
 /* Recreate the D3 brush style...
 tr.mouseover {
-	background-color: #d6d6d6;
+    background-color: #d6d6d6;
   }
   
   /* ...but add a darker selected and brushed color. */
   /* tr.mouseover.selected{
-	background-color: #e08fa3;
+    background-color: #e08fa3;
   }
 
 tr.mouseover.brushed{
-	background-color: #a3e08f;
+    background-color: #a3e08f;
   }
 
 tr.selected {
-	background-color: #e08fa3;
+    background-color: #e08fa3;
   }
   
   tr.brushed {
-	background-color: #a3e08f;
+    background-color: #a3e08f;
   }
 
 tr.mousedown.brushed {
-	background-color: #7bc876;
+    background-color: #7bc876;
   } */
 
 h1, h2, h3 {
-	line-height: 1.2
+    line-height: 1.2
 }
 
 /* Your text should be in a nice narrow column */
 .content-column {
-	max-width: 650px;
-	margin: 40px auto;
+    max-width: 650px;
+    margin: 40px auto;
 }
 
 /* But your visualization should be full-width and full-height */
@@ -50,96 +50,97 @@ h1, h2, h3 {
 
 /* Important to add if we want the scatterplot to take take the right half of the screen */
 .scatterplot-holder {
-	flex: 1;  
+    flex: 1;  
   }
 
   /* The line chart will take the left half of the screen */
 .barchart-holder {
-	flex: 0 0 50%;
+    flex: 0 0 50%;
   }
 
   #table-container {
-	font-family: Arial, sans-serif;
-	border-collapse: collapse;
-	width: 100%;
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
   }
   
   table {
-	border: 1px solid #ddd;
-	width: 100%;
+    border: 1px solid #ddd;
+    width: 100%;
   }
   
   th, td {
-	border: 1px solid #ddd;
-	padding: 8px;
-	text-align: left;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
   }
 
   /*
   Used to adjust the size and formatting for the table.
   */
   .table-holder {
-	width: 65%; /* Adjust the width as needed */
-	margin-top: 20px;
-	align-self: flex-end;
-	box-sizing: border-box;
-	padding: 20px;
-  }
+    width: 25%; /* Adjust the width as needed */
+    margin-top: 20px;
+    transform: translate(250%, -1400px); /* Adjust the X translation as needed */
+    box-sizing: border-box;
+    padding: 20px;
+}
 
     
 /* Fork on GitHub ribbon via https://codepo8.github.io/css-fork-on-github-ribbon/# */  
 #forkongithub a{
-	background:#00F;
-	color:#fff;
-	text-decoration:none;
-	font-family:arial,sans-serif;
-	text-align:center;
-	font-weight:bold;
-	padding:5px 40px;
-	font-size:1rem;
-	line-height:1.4rem;
-	position:relative;
-	transition:0.5s;
+    background:#00F;
+    color:#fff;
+    text-decoration:none;
+    font-family:arial,sans-serif;
+    text-align:center;
+    font-weight:bold;
+    padding:5px 40px;
+    font-size:1rem;
+    line-height:1.4rem;
+    position:relative;
+    transition:0.5s;
 }
 #forkongithub a:hover{
-	background:#118;
-	color:#fff;
+    background:#118;
+    color:#fff;
 }
 #forkongithub a::before,#forkongithub a::after{
-	content:"";
-	width:100%;
-	display:block;
-	position:absolute;
-	top:1px;
-	left:0;
-	height:1px;
-	background:#fff;
+    content:"";
+    width:100%;
+    display:block;
+    position:absolute;
+    top:1px;
+    left:0;
+    height:1px;
+    background:#fff;
 }
 #forkongithub a::after{
-	bottom:1px;
-	top:auto;
+    bottom:1px;
+    top:auto;
 }
 @media screen and (min-width:1000px){
-	#forkongithub{
-		position:fixed;
-		display:block;
-		top:0;
-		right:0;
-		width:200px;
-		overflow:hidden;
-		height:200px;
-		z-index:9999;
-	}
-	#forkongithub a{
-		width:200px;
-		position:absolute;
-		top:60px;
-		right:-60px;
-		transform:rotate(45deg);
-		-webkit-transform:rotate(45deg);
-		-ms-transform:rotate(45deg);
-		-moz-transform:rotate(45deg);
-		-o-transform:rotate(45deg);
-		box-shadow:4px 4px 10px rgba(0,0,0,0.8);
-	}
+    #forkongithub{
+        position:fixed;
+        display:block;
+        top:0;
+        right:0;
+        width:200px;
+        overflow:hidden;
+        height:200px;
+        z-index:9999;
+    }
+    #forkongithub a{
+        width:200px;
+        position:absolute;
+        top:60px;
+        right:-60px;
+        transform:rotate(45deg);
+        -webkit-transform:rotate(45deg);
+        -ms-transform:rotate(45deg);
+        -moz-transform:rotate(45deg);
+        -o-transform:rotate(45deg);
+        box-shadow:4px 4px 10px rgba(0,0,0,0.8);
+    }
 }
+
