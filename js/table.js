@@ -1,6 +1,5 @@
 // table.js
 
-// Define stateList, finalExpenditures, insuredPercentage, and maternityDeaths as global variables
 const stateList = [
   "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia",
   "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland",
@@ -46,12 +45,9 @@ function createEmptyTable() {
     .enter().append("th")
     .text(d => d);
 
-  return table;
-}
-
-function addSelectionRow(table) {
-  // Append a row for the user to select a state
-  const selectionRow = table.append("tbody").append("tr").attr("class", "selection-row");
+  // Append a separate thead for the state selection
+  const selectionHead = table.append("thead");
+  const selectionRow = selectionHead.append("tr").attr("class", "selection-row");
   const stateSelect = selectionRow.append("td")
     .append("select")
     .attr("class", "state-select")
@@ -64,6 +60,11 @@ function addSelectionRow(table) {
     .data(stateList)
     .enter().append("option")
     .text(d => d);
+
+  // Append an empty tbody
+  table.append("tbody");
+
+  return table;
 }
 
 function updateTable(table, selectedState) {
@@ -80,7 +81,7 @@ function updateTable(table, selectedState) {
     console.log("Insurance Percentage:", insurancePercentage);
     console.log("Maternity Death:", maternityDeath);
 
-    // Append a new data row for the selected state
+    // Append a new row for the selected state and its data
     const newRow = table.select("tbody").append("tr").attr("class", "data-row");
     newRow.append("td").text(selectedState);
     newRow.append("td").text(totalExpenditure);
@@ -91,12 +92,33 @@ function updateTable(table, selectedState) {
     rowIndex++;
 
     // Add another selection row for additional selections
-    addSelectionRow(table);
+    updateSelectionRow(table, selectedState);
   } else {
     console.error("Selected state not found in the data.");
   }
 }
 
+function updateSelectionRow(table, selectedState) {
+  // Remove existing selection row
+  table.select(".selection-row").remove();
+
+  // Add a new selection row
+  const selectionHead = table.select("thead");
+  const selectionRow = selectionHead.append("tr").attr("class", "selection-row");
+  const stateSelect = selectionRow.append("td")
+    .append("select")
+    .attr("class", "state-select")
+    .on("change", function () {
+      const selectedState = d3.select(this).property("value");
+      updateTable(table, selectedState);
+    });
+
+  stateSelect.selectAll("option")
+    .data(stateList)
+    .enter().append("option")
+    .text(d => d)
+    .property("selected", d => d === selectedState); // Set the selected state
+}
+
 // Call the function to create an empty table initially
 const table = createEmptyTable();
-addSelectionRow(table);
