@@ -1,6 +1,6 @@
-console.log("visualizaion.js is up!");
-
 import { returnStateNames } from './barchart2.js'; 
+    
+console.log("visualizaion.js is up!");
 
 // Call the function to get the selected state names
 const selectedStates = returnStateNames();
