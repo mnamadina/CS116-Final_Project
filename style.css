@@ -65,7 +65,7 @@ h1, h2, h3 {
   .table-holder {
     width: 25%; /* Adjust the width as needed */
     margin-top: 20px;
-    transform: translate(250%, -1300px); /* Adjust the X translation as needed */
+    transform: translate(250%, -1500px); /* Adjust the X translation as needed */
     box-sizing: border-box;
     padding: 20px;
 }
