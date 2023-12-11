@@ -1,8 +1,10 @@
+let selectedStateNames = [];
+
 // Immediately Invoked Function Expression to limit access to our 
 // variables and prevent 
 // console.log("visualization.js is up!");
 
-(() => {
+function scatterplot() {
 
   // Will be edited to follow the path later
   var scatterplot_data =
@@ -509,6 +511,9 @@ svg.append('text')
           // Log the state names of the selected circles
           const selectedStateNames = selectedData.map(d => d.State);
           console.log("Selected State Names: ", selectedStateNames);
+
+          document.dispatchEvent(new CustomEvent('selectedStateNamesUpdated', { detail: selectedStateNames }));
+
         
           // Toggle class 'selected' for dots within the brushed area
           circles.classed('selected', d =>
@@ -550,4 +555,6 @@ svg.append('text')
       circles.classed('selected', false).attr('fill', ''); // Remove 'selected' class and reset fill color
     }
   });
-})();
+};
+
+export { scatterplot };

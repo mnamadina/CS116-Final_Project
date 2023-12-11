@@ -148,6 +148,9 @@ function brushed() {
 
   console.log("Selected State Names: ", selectedStateNames);
 
+  document.dispatchEvent(new CustomEvent('selectedStateNamesUpdated', { detail: selectedStateNames }));
+
+
   // Toggle class 'selected' for bars within the brushed area
   bars.classed('selected', function (d) {
     var barX = xScale(d.State);
@@ -162,6 +165,5 @@ function brushed() {
 }
 
 // Call the barchart function to generate the visualization
-barchart();
-export { barchart, selectedStateNames };
+export { barchart };
 
