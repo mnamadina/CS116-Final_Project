@@ -50,16 +50,15 @@
            By producing linked/interactive visualizations, we hope to suggest possible correlations between the three features to the general public.
     </em></p>
     
-    <p><em>Expectation: There is a clear focus, and a developed explanation of the problem, and a reasonable response is proposed.</em></p>
 
     
     <h1>Visualization</h1>
     
-    <p><em>Include the interactive visualization as part of this page. Static example follows.</em></p>
+
     
   </div>
   
-  <!-- Your visualization here -->
+  <!-- Main Visualizations -->
   <div class="vis-holder">
     <!-- Change viewbox to whatever you want, e.g. "0 0 1000 6000" This determines your aspect ratio and coordinate system -->    
     <!-- Delete all the sample SVG code below after the viewbox to before the closing tag. Populate this part of the SVG with D3. -->
@@ -69,27 +68,22 @@
     <p>Although black women are 3x more likely to die of complications related to childbirth than white women in the US, this chart reveals that the
       actual percentage of non-white residents in any one state does not correlate with the amount of maternal deaths per capita in that state—a
       surprising find that indicates that the racial composition of a state's population alone doesn't seem to be the primary factor influencing
-      maternal mortality rates. Other factors, such as healthcare access, quality of care, socioeconomic conditions, and systemic issues, might play a
+      maternal mortality rates. </br>
+      Other factors, such as healthcare access, quality of care, socioeconomic conditions, and systemic issues, might play a
       more substantial role in contributing to the disparities in maternal mortality rate </p>
     <h3> Insurance Coverage by States</h3>
     <div class="barchart-holder" id="barchart"></div>
-    <!-- <svg id="vis-svg"
-      preserveAspectRatio="xMidYMid meet" class="marks" viewBox="0 0 821 520" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    </svg> -->
-  
+ 
     <div class="map-holder">
       <h3>Healthcare Expenditure by States</h3>
       <script src="https://d3js.org/d3.v5.min.js"></script>
       <script src="https://d3js.org/topojson.v3.min.js"></script>
       <script type="text/javascript" src="./js/renderMap.js"></script>
-      <!-- <h3>Healthcare Expenditure by States</h3> -->
-      <!-- What's weired is that ll the scripts inside the svg tag below doesn't work... -->
-      <!-- <svg class= "map-holder" id="map">
-        <script src="https://d3js.org/d3.v5.min.js"></script>
-        <script src="https://d3js.org/topojson.v3.min.js"></script>
-        <script type="text/javascript" src="./js/renderMap.js"></script>
-
-      </svg> -->
+      <p> Shows per capita healthcare expenditure. </br>
+          The dataset is from <a href="https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data/state-residence">CMS.gov.</a></br>
+          The expenditure is an aggregate of the following items: </br>
+          Personal Health Care, Hospital Care, Physician & Clinical Services, Other Professional Services, Dental Services, Home Health Care, Prescription Drugs and other Non-durable Medical Products, Durable Medical Products, Nursing Home Care, and Other Health, Residential, and Personal Care
+      </p>
     </div>
 
     <div class="table-holder" id="table"></div>
@@ -97,12 +91,11 @@
 
   </div>
   
-  <!-- Your writeup goes here -->
+  <!-- Write ups for the project -->
   <div class = "content-column">
 
     <h1>Visualization explanation</h1>
     
-    <p><em>Final visualization screenshots (PNG images), design justifications, UI walk-through, and linked presentation slides.</em></p>
     <div class="visual - explanation">
       <H3>Project Overview</H3>
         <p>
@@ -118,29 +111,45 @@
         </p>
       <h3>Visualizations:</h3>
         <p>
-          There are 4 primary visualizations that we plan to create and x subsidiary visualizations.</br>
-          The 4 primary visualizations are: US map (for healthcare expenditure), bar chart (for insurance coverage), scatter plot (for maternal mortality), and table (showing numerical data points of all 3 features). 
+          There are 3 primary visualizations that we plan to create and 1 subsidiary visualizations.</br>
+          <ol>
+            <li>Scatter Plot:
+              <p>
+
+              </p>
+            </li>
+            <li>Bar Chart: 
+              <p>
+
+              </p>
+            </li>
+            <li>US Map:
+              <p>
+
+              </p>
+            </li>
+            <li>Table:
+              <p>
+
+              </p>
+            </li>
+          </ol>
 
        </p>
     </div>
 
     <h1>Data Analysis</h1>
-    <p><em>Summary of data, data types, and data preprocessing.</em></p>
     <h3>Primary Datasets for visualizations:</h3>
     <ol>
       <li><strong>Maternal Mortalities across States</strong></li>
         <p span="analysis - mortality">
-          <em>Progress made for Sprint2: </br>
-          1. Scatterplot properly displayed with real data (maternal mortality on x-axis and %of non-white residents on y-axis)</br>
-          2. Label(State names) added</br>
-          3. Brushing enabled: bubbles highlighted in red when hovered.</em>
+          <em>Analyze your dataset: </br>
+         </em>
         </p>
       <li><strong>Insurance Coverage by States</strong></li>
         <p span="analysis - insurance">
-          <em>Progress made for Sprint2: </br>
-            1. Bar chart properly displayed with real data (insurance-coverage of each state)</br>
-            2. Proper labels added: insurance coverage on y-axis and states on x-axis</br>
-            3. Brushing enabled: bars highlighted in red when hovered.</em>
+          <em>Analyze your dataset: </br>
+          </em>
         </p>
       <li><strong>Healthcare Expenditure by States</strong></li>
         <p span="analysis - expenditure">
@@ -148,9 +157,7 @@
           Downloaded from <a href="https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data/state-residence">cms.gov</a>,
           the data is classified by each state, region(NE, NW, ME, MW, SE, SW), and categories (clinical, items, surgical, etc.) of healthcare related spendings.
         </p>
-        <em>Progress made for Sprint2: </br>
-          1. US Map properly displayed</br>
-          2. Brushing enabled: state highlighted in bisque when hovered.</em>
+
     </ol>
 
     
