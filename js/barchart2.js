@@ -1,5 +1,4 @@
-var returnStateNames;
-
+let selectedStateNames = [];
 
 // Immediately Invoked Function Expression to limit access to our 
 // variables and prevent 
@@ -143,17 +142,11 @@ function brushed() {
   });
 
   // Log the state names of the selected bars
-  var selectedStateNames = selectedData.map(function (d) {
+  selectedStateNames = selectedData.map(function (d) {
     return d.State;
   });
 
   console.log("Selected State Names: ", selectedStateNames);
-
-  returnStateNames = function() {
-    console.log("I am returning the state names ", returnStateNames);
-
-    return selectedStateNames;
-  };
 
   // Toggle class 'selected' for bars within the brushed area
   bars.classed('selected', function (d) {
@@ -170,5 +163,5 @@ function brushed() {
 
 // Call the barchart function to generate the visualization
 barchart();
-export { returnStateNames };
+export { barchart, selectedStateNames };
 

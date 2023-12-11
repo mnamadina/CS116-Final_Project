@@ -1,12 +1,14 @@
-import { returnStateNames } from './barchart2.js'; 
-    
+import { barchart, selectedStateNames } from './barchart2.js'; 
+
 console.log("visualizaion.js is up!");
 
-// Call the function to get the selected state names
-const selectedStates = returnStateNames();
-console.log("Selected State Names from Another File: ", selectedStates);
+
 
 (() => {
+    barchart();
+    console.log("Selected State Names from Another File: ", selectedStateNames);
+
+
     // Include the code from barchart2.js
     // ...
   
@@ -15,6 +17,9 @@ console.log("Selected State Names from Another File: ", selectedStates);
   
     // Function to handle highlighting in the bar chart from the scatter plot
     function highlightBarchart(selectedStates) {
+    
+
+
       // Implement the logic to highlight corresponding bars in the bar chart based on selected states in the scatter plot
       // Use the selectedStates array to identify which bars to highlight
       // You may need to modify this based on your data structure and logic
