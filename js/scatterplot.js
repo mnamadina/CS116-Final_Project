@@ -524,11 +524,8 @@ svg.append('text')
       }
     }
     
-    brush();
-    
-
-  brush(); 
-
+  brush();
+  
   // Adding mousedown event listener to document body
   document.body.addEventListener('mousedown', function (event) {
     const isClickedInsideCircle = event.target.closest('.scatter-circle');
