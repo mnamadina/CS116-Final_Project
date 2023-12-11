@@ -29,7 +29,6 @@ const maternityDeaths = [41.9, 22.4, 30, 40.6, 9.5, 15.9, 16.7, 18.9, 23.8, 33.4
 ];
 let rowIndex = 0; // Counter to track the current row index
 
-// Function to create an empty table structure with headers
 function createEmptyTable() {
   // Append a table to the body of the HTML document
   const table = d3.select("#table")
