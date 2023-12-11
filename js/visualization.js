@@ -1,3 +1,11 @@
+console.log("visualizaion.js is up!");
+
+import { returnStateNames } from './barchart2.js'; 
+
+// Call the function to get the selected state names
+const selectedStates = returnStateNames();
+console.log("Selected State Names from Another File: ", selectedStates);
+
 (() => {
     // Include the code from barchart2.js
     // ...

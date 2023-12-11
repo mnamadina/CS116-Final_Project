@@ -1,3 +1,6 @@
+var returnStateNames;
+
+
 // Immediately Invoked Function Expression to limit access to our 
 // variables and prevent 
 // console.log("visualization.js is up!");
@@ -111,8 +114,6 @@ function barchart() {
   .style('text-anchor', 'middle')
   .text('Insured Percentage'); // Change this to your y-axis label text
 
-  selectableElements = bars;
-
 // Add brush for multi-selection
 var brush = d3.brushX()
 .extent([[0, 0], [width, height]])
@@ -148,6 +149,12 @@ function brushed() {
 
   console.log("Selected State Names: ", selectedStateNames);
 
+  returnStateNames = function() {
+    console.log("I am returning the state names ", returnStateNames);
+
+    return selectedStateNames;
+  };
+
   // Toggle class 'selected' for bars within the brushed area
   bars.classed('selected', function (d) {
     var barX = xScale(d.State);
@@ -159,7 +166,9 @@ function brushed() {
     return d3.select(this).classed('selected') ? 'red' : 'cornflowerblue';
   });
 }
-};
+}
 
 // Call the barchart function to generate the visualization
 barchart();
+export { returnStateNames };
+

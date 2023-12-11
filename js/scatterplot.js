@@ -1,6 +1,7 @@
 // Immediately Invoked Function Expression to limit access to our 
 // variables and prevent 
 // console.log("visualization.js is up!");
+
 (() => {
 
   // Will be edited to follow the path later
@@ -407,6 +408,7 @@
         "Instances of hate crimes (per 100,000)": 0.36
       }
   ];
+
   var margin = { top: 30, right: 60, bottom: 60, left: 70 };
   var width = 800 - margin.left - margin.right;
   var height = 500 - margin.top - margin.bottom;
