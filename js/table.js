@@ -27,7 +27,6 @@ const maternityDeaths = [41.9, 22.4, 30, 40.6, 9.5, 15.9, 16.7, 18.9, 23.8, 33.4
   31, 19.8, 25.4, 21.2, 23.7, 29.8, 16.8, 15.6, 11.2, 30.3,
   25.9, 40.2, 27, 14.9, null, 26.8, 20.4, 22.3, 10.8, null
 ];
-
 let rowIndex = 0; // Counter to track the current row index
 
 // Function to create an empty table structure with headers
@@ -63,6 +62,15 @@ function createEmptyTable() {
 
   // Append an empty tbody
   table.append("tbody");
+
+  // Append a "Clear" button
+  d3.select("#table")
+    .append("button")
+    .attr("class", "clear-button")
+    .text("Clear")
+    .on("click", function () {
+      clearTable(table);
+    });
 
   return table;
 }
@@ -118,6 +126,20 @@ function updateSelectionRow(table, selectedState) {
     .enter().append("option")
     .text(d => d)
     .property("selected", d => d === selectedState); // Set the selected state
+}
+
+function clearTable(table) {
+  // Clear the tbody
+  table.select("tbody").selectAll(".data-row").remove();
+
+  // Reset the rowIndex
+  rowIndex = 0;
+
+  // Remove existing selection row
+  table.select(".selection-row").remove();
+
+  // Add a new selection row
+  updateSelectionRow(table, stateList[0]); // Initialize with the first state in the list
 }
 
 // Call the function to create an empty table initially
