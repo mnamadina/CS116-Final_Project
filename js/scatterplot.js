@@ -492,30 +492,42 @@ svg.append('text')
       svg.append('g')
         .call(brush);
     
-      function highlight() {
-        const [
-          [x0, y0],
-          [x1, y1]
-        ] = d3.event.selection;
-    
-        circles.classed('selected', d =>
-          x0 <= xScale(d["% of non-white residents"]) && xScale(d["% of non-white residents"]) <= x1 &&
-          y0 <= yScale(d["Mortality deaths/100,000 births"]) && yScale(d["Mortality deaths/100,000 births"]) <= y1
-        );
-    
-        circles.attr('fill', function () {
-          return d3.select(this).classed('selected') ? 'red' : ''; // Apply red fill to selected circles
-        });
-    
-        // Toggle display of labels based on the brushed area
-        svg.selectAll('.text-label')
-          .style('display', d =>
+        function highlight() {
+          const [
+            [x0, y0],
+            [x1, y1]
+          ] = d3.event.selection;
+        
+          // Get the data of selected (brushed) circles
+          const selectedData = scatterplot_data.filter(d =>
             x0 <= xScale(d["% of non-white residents"]) && xScale(d["% of non-white residents"]) <= x1 &&
             y0 <= yScale(d["Mortality deaths/100,000 births"]) && yScale(d["Mortality deaths/100,000 births"]) <= y1
-              ? 'block' // Show labels within the brushed area
-              : 'none' // Hide labels outside the brushed area
           );
-      }
+        
+          // Log the state names of the selected circles
+          const selectedStateNames = selectedData.map(d => d.State);
+          console.log("Selected State Names: ", selectedStateNames);
+        
+          // Toggle class 'selected' for dots within the brushed area
+          circles.classed('selected', d =>
+            x0 <= xScale(d["% of non-white residents"]) && xScale(d["% of non-white residents"]) <= x1 &&
+            y0 <= yScale(d["Mortality deaths/100,000 births"]) && yScale(d["Mortality deaths/100,000 births"]) <= y1
+          );
+        
+          // Apply different styles to selected and non-selected dots
+          circles.attr('fill', function () {
+            return d3.select(this).classed('selected') ? 'red' : ''; // Apply red fill to selected circles
+          });
+        
+          // Toggle display of labels based on the brushed area
+          svg.selectAll('.text-label')
+            .style('display', d =>
+              x0 <= xScale(d["% of non-white residents"]) && xScale(d["% of non-white residents"]) <= x1 &&
+              y0 <= yScale(d["Mortality deaths/100,000 births"]) && yScale(d["Mortality deaths/100,000 births"]) <= y1
+                ? 'block' // Show labels within the brushed area
+                : 'none' // Hide labels outside the brushed area
+            );
+        }
     
       function brushEnd() {
         if (d3.event.sourceEvent.type !== "end") {

@@ -133,16 +133,31 @@ return barData === d && d3.select(this).classed('selected') ? 'red' : 'steelblue
 }
 
 function brushed() {
-var selection = d3.event.selection;
-bars.classed('selected', function (d) {
-var barX = xScale(d.State);
-return selection && barX >= selection[0] && barX + xScale.bandwidth() <= selection[1];
-});
+  var selection = d3.event.selection;
 
-// Set the fill color based on the 'selected' class
-bars.attr('fill', function (barData) {
-return d3.select(this).classed('selected') ? 'red' : 'steelblue';
-});
+  // Get the data of selected (brushed) bars
+  var selectedData = barchart_data.filter(function (d) {
+    var barX = xScale(d.State);
+    return selection && barX >= selection[0] && barX + xScale.bandwidth() <= selection[1];
+  });
+
+  // Log the state names of the selected bars
+  var selectedStateNames = selectedData.map(function (d) {
+    return d.State;
+  });
+
+  console.log("Selected State Names: ", selectedStateNames);
+
+  // Toggle class 'selected' for bars within the brushed area
+  bars.classed('selected', function (d) {
+    var barX = xScale(d.State);
+    return selection && barX >= selection[0] && barX + xScale.bandwidth() <= selection[1];
+  });
+
+  // Set the fill color based on the 'selected' class
+  bars.attr('fill', function (barData) {
+    return d3.select(this).classed('selected') ? 'red' : 'cornflowerblue';
+  });
 }
 };
 
