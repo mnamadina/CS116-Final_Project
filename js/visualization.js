@@ -1,6 +1,7 @@
 import { barchart } from './barchart2.js';
 import { scatterplot } from './scatterplot.js';
 import { createEmptyTable } from "./table.js";
+import { renderMap } from './renderMap.js';
 
 console.log("visualization.js is up!");
 
@@ -8,6 +9,7 @@ console.log("visualization.js is up!");
     barchart();
     scatterplot();
     const table = createEmptyTable(); // Save the table reference
+    renderMap();
 
     document.addEventListener('selectedStateNamesUpdated', (event) => {
         const selectedStateNames = event.detail;
@@ -17,6 +19,7 @@ console.log("visualization.js is up!");
         highlightBarchart(selectedStateNames);
         highlightScatterplot(selectedStateNames);
         updateTable(table, selectedStateNames);
+        highlightMap(selectedStateNames);
     });
 
     // Function to handle highlighting in the bar chart from the scatter plot
@@ -33,7 +36,12 @@ console.log("visualization.js is up!");
             .attr('fill', d => (selectedStates.includes(d.State) ? 'red' : ''));
     }
 
-    // Add other functions as needed
+   // Function to handle highlighting in the US Map from the bar chart and scatter plot
+    function highlightMap(selectedStates) {
+        d3.selectAll('.state')
+            .classed('highlighted', d => selectedStates.includes(d.properties.name))
+            .attr('fill', d => (selectedStates.includes(d.properties.name) ? 'red' : 'cornflowerblue'));
+    }
 
     function updateTable(table, selectedStates) {
         // Append a new row for each selected state and its data
