@@ -92,15 +92,15 @@
     <div class="visual - explanation">
       <H3>Project Overview</H3>
         <p>
-          Our project is about visualizing the status of the 3 features: maternal mortality, healthcare spending, and insurance coverage, all of which would be linked and interacted using a common field ‘state’ (by state, we mean individual states of the U.S). </br>
-          By generating appropriate visualizations that deliver the status of the three features using primarily d3.js, we hope to be able to deliver the general status and possible correlations between the three features to the general public. </br>
+          Our project is about visualizing the status of the 3 features: maternal mortality, healthcare spending, and insurance coverage, all of which would be linked and interacted with using a common field, ‘state’ (by state, we mean individual states of the U.S). </br><br>
+          By generating appropriate visualizations that deliver the status of the three features using primarily d3.js, we hope to be able to deliver the general status and possible correlations between the three features to the general public. </br></br>
           To achieve our desired delivery, we would take advantage of linking/brushing (between the visualizations to enhance the interactiveness of individual data point across our datasets), infographic types (bar charts, US map, scatter plot, and table), as well as color coding and other aspects learned throughout COSI 116 to optimize the visual delivery. 
         </p>
       <h3>Target Audience</h3>
         <p>
-          As we intend to deliver a landscape of health-related features and how they might possibly be interrelated, the target audience that would be best addressed is the general public (specifically, web surfers). </br>
-          It is easy to come across many infographics intended to raise awareness or pique interest in particular topics/subjects targeted for the general public browsing the web. Given the web is open for anyone and is used by people with a wide range of backgrounds and understanding on the topic that the infographics are focused on, we do not intend to encode any in-depth/professional data from biomedical or actuarial domains and the likes. </br>
-          Conversely, to catch the web surfers’ attention sweeply and effectively, each visualization needs to encode data in a way that intuitively delivers the status of the features and their possible interrelatedness. This would require trimmed and cleaned up data to present a holistic picture, consistent color scheme for linking, brushing, and highlighting to prevent/minimize distractions, and yet not a cookie-cutter, cliche visualizations to stop web surfers from scrolling down/clicking away.
+          As we intend to deliver a landscape of health-related features and how they might possibly be interrelated, the target audience that would be best addressed is the general public (specifically, web surfers). </br></br>
+          It is easy to come across many infographics intended to raise awareness or pique interest in particular topics/subjects targeted for the general public browsing the web. Given the web is open for anyone and is used by people with a wide range of backgrounds and understanding on the topic that the infographics are focused on, we do not intend to encode any in-depth/professional data from biomedical or actuarial domains and the likes. </br></br>
+          Conversely, to catch the web surfers’ attention effectively, each visualization needs to encode data in a way that intuitively delivers the status of the features and their possible interrelatedness. This would require trimmed and cleaned up data to present a holistic picture, consistent color scheme for linking, brushing, and highlighting to prevent/minimize distractions, and yet not a cookie-cutter, cliche visualizations to stop web surfers from scrolling down/clicking away.
         </p>
       <h3>Visualizations:</h3>
         <p>
@@ -110,7 +110,7 @@
               <p>
                 The goal for this scatterplot is to display the rate of maternal mortality deaths in each state in America, contrasted with the percentage
                 of non-white residents in that state, in order to investigate whether there is a correlation between the two. It also links to the rest
-                of the visualizations in order to see whether there is a correlation between either of these factors and spending on haalthcare expenditure
+                of the visualizations in order to see whether there is a correlation between either of these factors and spending on healthcare expenditure
                 or insurance coverage.
               </p>
             </li>
@@ -123,7 +123,8 @@
             </li>
             <li>US Map:
               <p>
-
+                The goal for this map is to display the healthcare expenditure in America by state, and link to the rest of the visualizations (scatterplot
+                and barchart) to be able to view one state based on a search feature and compare it with the other 2 visualizations.
               </p>
             </li>
             <li>Table:
@@ -144,13 +145,11 @@
     <ol>
       <li><strong>Maternal Mortalities across States</strong></li>
         <p span="analysis - mortality">
-          <em>Analyze your dataset: </br>
-         </em>
          <p>Although black women are 3x more likely to die of complications related to childbirth than white women in the US, this chart reveals that the
           actual percentage of non-white residents in any one state does not correlate with the amount of maternal deaths per capita in that state—a
           surprising find that indicates that the racial composition of a state's population alone doesn't seem to be the primary factor influencing
           maternal mortality rates. <br><br>Other factors, such as healthcare access, quality of care, socioeconomic conditions, and systemic issues,
-          might play a more substantial role in contributing to the disparities in maternal mortality rate </p>
+          might play a more substantial role in contributing to the disparities in maternal mortality rate. </p>
         </p>
       <li><strong>Insurance Coverage by States</strong></li>
         <p span="analysis - insurance">
@@ -175,6 +174,17 @@
     <p><em>Expectation: Clearly describes domain tasks, processes, goals and abstract tasks for domain problems.</em></p>
 
     <h1>Design Process</h1>
+
+    <p>Scatterplot: At first, the scatterplot just consisted of a bunch of dots with no names of states. However, due to the "details on demand" rule, when a 
+      user brushes over the dots, they become red and their name appears. The goal with this was to make it easy to distinguish the states—if all of
+      the names are there originally, it would be very difficult to read all of the names; this was discovered during usability testing. The other
+      change was to use color in order to show which states were brushed. The chart remained simple so that users can easily tell what's going on
+      (as we discussed in class, it's easy to confuse a  user if there are unnecessary additional marks), and the colors are there to help the user
+      distinguish whether states have been brushed.</p>
+
+    <p>Bar chart: </p>
+
+    <p>Map: </p>
     
     <p><em>Sketches and design choices to justify final visualization.</em></p>
 
@@ -184,6 +194,13 @@
 
 
     <h1>Conclusion</h1>
+
+    <p>
+      For this project, we created three visualizations—scatterplot, bar chart, and map—that are interactive and linked to each other. Although there 
+      is room to make things more visually appealing, we believe that the visualizations are effective in conveying the data and allowing users to see
+      whether or not various statistics correlate with each other on the state level (for example, whether or not maternal mortality rates correlate with
+      the percentage of non-white residents in a state, healthcare expenditure for that state, and insurance coverage for the state).
+    </p>
 
     <p><em>Short summary of work completed and areas for improvement/future-work.</em></p>
     
