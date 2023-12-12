@@ -216,11 +216,19 @@
 
     <h3>Map: </h3>
     <p>
+      The idea for creating the U.S Map was largely borrowed from the in-class activity. </br>
+      Although an overall shape of the U.S. Map could be created, because the in-class acitivity pulled data of the U.S maps in the early 1900s, 
+      new data as well as later versions of d3 had to be pulled to create the present-day U.S. Map. 
+      Using d3.js version 5 and pulling data from d3.topojson, a present-day Map was successfully generated. </br></br>
+      The next step was adding a brushing functionality. To achieve this, again borrowing from the previous course project, 
+      mouse-over / off & click events were added to highlight a state when hovered over.
+      Mouse events, unfortouantely, supported a single state highlight at a time, hence brushing was added later.
+
     </p>
 
-    <h4>Table: </h4>
+    <h3>Table: </h3>
     <p>Before beginning the table, I understood that the goal of the table was to provide information to the viewer about the data from our visualizations. 
-      When planning to create the table, I needed to consider the structure before moving on to visualization tools. 
+      When planning to create the table, I needed to consider the structure before moving on to visualization tools. </br></br>
       Our visualizations shared state data, but I knew creating a table with columns of 50 states would take up space and make it difficult for the viewer to navigate. 
       This is where I introduced the drop-down menu idea to let viewers choose the state they wish to see data for and view it correspondingly on the visualizations. 
       In doing so, interactivity and styling became the focus for creating the table. </p>
