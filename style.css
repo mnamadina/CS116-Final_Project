@@ -7,7 +7,7 @@ body {
 
 /* Define default circle style */
 .scatter-circle {
-  fill: black; /* Default fill color */
+  fill: cornflowerblue; /* Default fill color */
 }
 
 /* Define selected circle style */
