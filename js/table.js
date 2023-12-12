@@ -145,6 +145,9 @@ function clearTable(table) {
  // Remove existing selection row
  table.select(".selection-row").remove();
 
+ // Clear the selectedStateNames array
+ selectedStateNames = [];
+
  // Add a new selection row
  updateSelectionRow(table, stateList[0]); // Initialize with the first state in the list
 }
