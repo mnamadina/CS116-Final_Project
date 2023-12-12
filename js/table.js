@@ -1,5 +1,7 @@
 // table.js
 
+let selectedStateNames = [];
+
 const stateList = [
   "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia",
   "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland",
@@ -77,69 +79,75 @@ function createEmptyTable() {
 function updateTable(table, selectedState) {
   // Fetch data for the selected state
   const stateIndex = stateList.indexOf(selectedState);
-  console.log("Selected State Index:", stateIndex);
+ // console.log("Selected State Index:", stateIndex);
 
   if (stateIndex !== -1) {
     const totalExpenditure = finalExpenditures[stateIndex].toLocaleString("en-US", { style: "currency", currency: "USD" });
     const insurancePercentage = (insuredPercentage[stateIndex] !== null) ? insuredPercentage[stateIndex].toFixed(1) : "N/A";
     const maternityDeath = (maternityDeaths[stateIndex] !== null) ? maternityDeaths[stateIndex].toFixed(1) : "N/A";
 
-    console.log("Total Expenditure:", totalExpenditure);
-    console.log("Insurance Percentage:", insurancePercentage);
-    console.log("Maternity Death:", maternityDeath);
+   // console.log("Total Expenditure:", totalExpenditure);
+  //  console.log("Insurance Percentage:", insurancePercentage);
+   // console.log("Maternity Death:", maternityDeath);
 
-    // Append a new row for the selected state and its data
-    const newRow = table.select("tbody").append("tr").attr("class", "data-row");
-    newRow.append("td").text(selectedState);
-    newRow.append("td").text(totalExpenditure);
-    newRow.append("td").text(insurancePercentage);
-    newRow.append("td").text(maternityDeath);
+   // Append a new row for the selected state and its data
+   const newRow = table.select("tbody").append("tr").attr("class", "data-row");
+   newRow.append("td").text(selectedState);
+   newRow.append("td").text(totalExpenditure);
+   newRow.append("td").text(insurancePercentage);
+   newRow.append("td").text(maternityDeath);
 
-    // Increment the rowIndex for the next row
-    rowIndex++;
+   // Increment the rowIndex for the next row
+   rowIndex++;
 
-    // Add another selection row for additional selections
-    updateSelectionRow(table, selectedState);
-  } else {
-    console.error("Selected state not found in the data.");
-  }
+   // Add another selection row for additional selections
+   updateSelectionRow(table, selectedState);
+
+   selectedStateNames.push(selectedState);
+
+   console.log("Selected State Names: ", selectedStateNames);
+
+ } else {
+   console.error("Selected state not found in the data.");
+ }
 }
 
 function updateSelectionRow(table, selectedState) {
-  // Remove existing selection row
-  table.select(".selection-row").remove();
+ // Remove existing selection row
+ table.select(".selection-row").remove();
 
-  // Add a new selection row
-  const selectionHead = table.select("thead");
-  const selectionRow = selectionHead.append("tr").attr("class", "selection-row");
-  const stateSelect = selectionRow.append("td")
-    .append("select")
-    .attr("class", "state-select")
-    .on("change", function () {
-      const selectedState = d3.select(this).property("value");
-      updateTable(table, selectedState);
-    });
+ // Add a new selection row
+ const selectionHead = table.select("thead");
+ const selectionRow = selectionHead.append("tr").attr("class", "selection-row");
+ const stateSelect = selectionRow.append("td")
+   .append("select")
+   .attr("class", "state-select")
+   .on("change", function () {
+     const selectedState = d3.select(this).property("value");
+     updateTable(table, selectedState);
+   });
 
-  stateSelect.selectAll("option")
-    .data(stateList)
-    .enter().append("option")
-    .text(d => d)
-    .property("selected", d => d === selectedState); // Set the selected state
-}
+ stateSelect.selectAll("option")
+   .data(stateList)
+   .enter().append("option")
+   .text(d => d)
+   .property("selected", d => d === selectedState); // Set the selected state
+
+ }
 
 function clearTable(table) {
-  // Clear the tbody
-  table.select("tbody").selectAll(".data-row").remove();
+ // Clear the tbody
+ table.select("tbody").selectAll(".data-row").remove();
 
-  // Reset the rowIndex
-  rowIndex = 0;
+ // Reset the rowIndex
+ rowIndex = 0;
 
-  // Remove existing selection row
-  table.select(".selection-row").remove();
+ // Remove existing selection row
+ table.select(".selection-row").remove();
 
-  // Add a new selection row
-  updateSelectionRow(table, stateList[0]); // Initialize with the first state in the list
+ // Add a new selection row
+ updateSelectionRow(table, stateList[0]); // Initialize with the first state in the list
 }
 
 // Call the function to create an empty table initially
-const table = createEmptyTable();
+export {createEmptyTable };

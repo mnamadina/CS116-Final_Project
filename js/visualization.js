@@ -1,11 +1,13 @@
 import { barchart } from './barchart2.js';
 import { scatterplot } from './scatterplot.js';
+import { createEmptyTable } from "./table.js";
 
 console.log("visualization.js is up!");
 
 (() => {
     barchart();
     scatterplot();
+    createEmptyTable()
 
     document.addEventListener('selectedStateNamesUpdated', (event) => {
         const selectedStateNames = event.detail;
