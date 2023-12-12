@@ -39,7 +39,7 @@ h1, h2, h3 {
   font-weight: bold;
 }
 .visual-explanation p {
-  color: darkslategray;
+  color: black;
   font-weight: normal;
 }
 /* Important to add if we want the scatterplot to take take the right half of the screen */
