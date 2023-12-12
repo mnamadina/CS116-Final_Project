@@ -20,7 +20,7 @@ h1, h2, h3 {
 }
 
 /* Your text should be in a nice narrow column */
-.content-column {
+.content-column, .content-column {
     max-width: 650px;
     margin: 40px auto;
 }
@@ -31,7 +31,17 @@ h1, h2, h3 {
   height: 100%;
 }
 
-
+.content-column h3 {
+  color: darkcyan;
+}
+.visual-explanation li {
+  color: darkcyan;
+  font-weight: bold;
+}
+.visual-explanation p {
+  color: darkslategray;
+  font-weight: normal;
+}
 /* Important to add if we want the scatterplot to take take the right half of the screen */
 .scatterplot-holder {
     flex: 1;  
