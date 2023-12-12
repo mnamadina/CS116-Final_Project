@@ -30,6 +30,9 @@ h1, h2, h3 {
   width: 100%;
   height: 100%;
 }
+.vis-holder h3 {
+  color: darkcyan;
+}
 
 .content-column h3 {
   color: darkcyan;
