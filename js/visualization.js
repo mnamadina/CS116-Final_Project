@@ -1,6 +1,7 @@
 import { barchart } from './barchart2.js';
 import { scatterplot } from './scatterplot.js';
 import { createEmptyTable } from "./table.js";
+import { renderMap } from './renderMap.js';
 
 console.log("visualization.js is up!");
 
@@ -8,6 +9,7 @@ console.log("visualization.js is up!");
     barchart();
     scatterplot();
     createEmptyTable()
+    renderMap();
 
     document.addEventListener('selectedStateNamesUpdated', (event) => {
         const selectedStateNames = event.detail;
@@ -16,6 +18,7 @@ console.log("visualization.js is up!");
         // Call your highlighting functions
         highlightBarchart(selectedStateNames);
         highlightScatterplot(selectedStateNames);
+        highlightMap(selectedStateNames);
     });
 
     // Function to handle highlighting in the bar chart from the scatter plot
@@ -32,6 +35,11 @@ console.log("visualization.js is up!");
             .attr('fill', d => (selectedStates.includes(d.State) ? 'red' : ''));
     }
 
-    // Add other functions as needed
+   // Function to handle highlighting in the US Map from the bar chart and scatter plot
+    function highlightMap(selectedStates) {
+        d3.selectAll('.state')
+            .classed('highlighted', d => selectedStates.includes(d.properties.name))
+            .attr('fill', d => (selectedStates.includes(d.properties.name) ? 'red' : 'cornflowerblue'));
+    }
 
 })();
