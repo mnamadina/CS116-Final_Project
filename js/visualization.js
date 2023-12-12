@@ -1,7 +1,7 @@
 import { barchart } from './barchart2.js';
 import { scatterplot } from './scatterplot.js';
 import { createEmptyTable } from "./table.js";
-// import { renderMap } from './renderMap.js';
+import { renderMap } from './renderMap.js';
 
 console.log("visualization.js is up!");
 
@@ -9,7 +9,7 @@ console.log("visualization.js is up!");
     barchart();
     scatterplot();
     createEmptyTable()
-    // renderMap();
+    renderMap();
 
     document.addEventListener('selectedStateNamesUpdated', (event) => {
         const selectedStateNames = event.detail;
@@ -18,7 +18,7 @@ console.log("visualization.js is up!");
         // Call your highlighting functions
         highlightBarchart(selectedStateNames);
         highlightScatterplot(selectedStateNames);
-        // highlightMap(selectedStateNames);
+        highlightMap(selectedStateNames);
     });
 
     // Function to handle highlighting in the bar chart from the scatter plot

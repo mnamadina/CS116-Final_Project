@@ -135,10 +135,10 @@ export async function renderMap() {
         .append('path')
         .attr('class', 'state')
         .attr('d', path)
-        .style('fill', 'cornflowerblue');
-  //       .on('mouseover', handleMouseOver)
-  //       .on('mouseleave', handleMouseLeave)
-  //       .on('click', handleMouseClick);
+        .style('fill', 'cornflowerblue')
+        .on('mouseover', handleMouseOver)
+        .on('mouseleave', handleMouseLeave)
+        .on('click', handleMouseClick);
   }
   
   
