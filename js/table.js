@@ -105,6 +105,9 @@ function updateTable(table, selectedState) {
 
    selectedStateNames.push(selectedState);
 
+   document.dispatchEvent(new CustomEvent('selectedStateNamesUpdated', { detail: selectedStateNames }));
+
+
    console.log("Selected State Names: ", selectedStateNames);
 
  } else {
